@@ -1,8 +1,35 @@
-var express = require('express');
-var app = express();
+const express = require('express'),
+      PropertiesReader = require('properties-reader');
+const app = express();
+
+//Globals
+
+global._base = __dirname + '/';
+global._db = PropertiesReader(_base + 'resources/db.properties');
+global._env = app.get('env');
+global._isDev = _env === 'development';
+global._isProd = _env === 'production';
+
+console.info = function(message) {
+    console.log('[INFO] ' + message);
+}
+
+console.debug = function(message) {
+    console.log('[DEBUG] ' + message);
+}
+
+console.critical = function(message) {
+    console.log('[!!! CRITICAL !!!] ' + message);
+}
+
+const setUpDatabase = require(_base + 'services/SetupDatabaseService');
+setUpDatabase();
+
+
 app.get('/api', (req, res) => {
-  res.json({message: 'Welcome to the Server'});
+    res.json({message: 'Welcome to the Server'});
 });
-app.listen(8880, ()=>{
-  console.log('API listening on port 8081');
+
+app.listen(8081, ()=>{
+    console.log('API listening on port 8081');
 });
