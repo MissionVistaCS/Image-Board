@@ -1,4 +1,5 @@
 const express = require('express'),
+      routescan = require('express-routescan'),
       PropertiesReader = require('properties-reader');
 const app = express();
 
@@ -25,9 +26,8 @@ console.critical = function(message) {
 const setUpDatabase = require(_base + 'services/SetupDatabaseService');
 setUpDatabase();
 
-
-app.get('/api', (req, res) => {
-    res.json({message: 'Welcome to the Server'});
+routescan(app, {
+    ignoreInvalid: true
 });
 
 app.listen(8081, ()=>{
