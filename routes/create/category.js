@@ -4,7 +4,7 @@ const Category = require(_base + 'models/category');
 
 module.exports = {
     '/create/category': {
-	methods: ['create'],
+	methods: ['post'],
 	middleware: [],
 	fn: function(req, res, next) {
 	     const name = req.body.name;
