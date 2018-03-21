@@ -1,11 +1,10 @@
-const express = require('express');
-
 const Boards = require(_base + 'models/boards');
 
 module.exports = {
 	'/read/boards' : {
 		methods: ['get'],
 		fn: function(req, res, next) {
+			//are these necessary?
 			let category = req.query.category,
 				name = req.query.name,
 				letter = req.query.letter,
