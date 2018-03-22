@@ -7,7 +7,7 @@ module.exports = {
       let letter = req.query.letter;
       let board = Board.findOne({letter: letter}, function(err) {
         if(err) {
-          return(console.log('Error board ' + letter));
+          return console.log('Error board ' + letter);
         }
       });
       Board.deleteOne(board); // TODO: Call services method?

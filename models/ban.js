@@ -1,4 +1,5 @@
-let mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const shortid = require('shortid');
 let banSchema = new mongoose.Schema({
     _id: { type: String, required: true, unique: true, default: shortid.generate },
     time: { type: Date, required: true, unique: false, default: Date.now() },
