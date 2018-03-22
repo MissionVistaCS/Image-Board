@@ -5,11 +5,11 @@ module.exports = {
 		methods: ['get'],
 		fn: function(req, res, next) {
 			let letter = req.query.letter;
-			Threads.find({letter: letter}, function(err, results) {
+			Threads.find({ letter: letter }, function(err, results) {
 				if(err) {
 					console.log('Error!');
 				} else {
-					res.json({{results: results}});	//returns all threads
+					res.json({ results: results });	//returns all threads
 				}
 			});
 		}
