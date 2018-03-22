@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Boards = require(_base + 'models/boards');
+const Boards = require(_base + 'models/board');
 
 module.exports = {
 	'/read/boards' : {
@@ -11,7 +11,7 @@ module.exports = {
 				letter = req.query.letter,
 				favicon = req.query.favicon;
 
-			let boards = Boards.findAll({letter: letter}, function(err, results) {
+			let boards = Boards.find({letter: letter}, function(err, results) {
 				if(err) {
 					return console.log("error"); //probably wrong sorry
 				} else {

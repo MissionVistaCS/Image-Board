@@ -1,4 +1,4 @@
-const auth = require(_base + 'middleware/authenticate');
+//const auth = require(_base + 'middleware/authenticate');
 
 const Category = require(_base + 'models/category');
 

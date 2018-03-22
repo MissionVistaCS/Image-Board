@@ -30,6 +30,6 @@ routescan(app, {
     ignoreInvalid: true
 });
 
-app.listen(8081, ()=>{
-    console.log('API listening on port 8081');
+app.listen(3001, ()=>{
+    console.log('API listening on port 3001');
 });
