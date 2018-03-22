@@ -1,7 +1,20 @@
 const express = require('express'),
       routescan = require('express-routescan'),
+      bodyParser = require('body-parser'),
+      session = require("express-session"),
+      cookieParser = require('cookie-parser'),
       PropertiesReader = require('properties-reader');
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({
+    secret: 'erferfre234324reevvfe',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, maxAge: Number(100000) }
+}));
 
 //Globals
 
