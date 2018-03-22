@@ -1,3 +1,4 @@
+let mongoose = require("mongoose");
 let boardSchema = new mongoose.Schema({
     categoryId: { type: String, required: true, unique: true },
     name: { type: String, required: true, unique: true }

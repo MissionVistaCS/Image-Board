@@ -1,3 +1,4 @@
+let mongoose = require("mongoose");
 let modSchema = new mongoose.Schema({
 
 }, { collection: _db.get("db.collection.mods") });

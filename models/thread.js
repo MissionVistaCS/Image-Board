@@ -1,3 +1,4 @@
+let mongoose = require("mongoose");
 let threadSchema = mongoose.Schema({
     _id: { type: String, required: true, unique: true, default: shortid.generate },
     title: { type: String, required: true, unique: false },
