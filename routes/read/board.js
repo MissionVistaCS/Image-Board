@@ -1,4 +1,4 @@
-const Boards = require(_base + 'models/boards');
+const Boards = require(_base + 'models/board');
 
 module.exports = {
 	'/read/board' : {
@@ -10,7 +10,7 @@ module.exports = {
 				if(err) {
 					console.log("Error!");
 				} else {
-					res.json(name: results.name, favicon: results.favicon);
+				        res.json({ name: results.name, favicon: results.favicon });
 				}
 			});
 		}

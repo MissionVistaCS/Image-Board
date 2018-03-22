@@ -1,7 +1,20 @@
 const express = require('express'),
       routescan = require('express-routescan'),
+      bodyParser = require('body-parser'),
+      session = require("express-session"),
+      cookieParser = require('cookie-parser'),
       PropertiesReader = require('properties-reader');
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({
+    secret: 'erferfre234324reevvfe',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, maxAge: Number(100000) }
+}));
 
 //Globals
 
@@ -30,6 +43,6 @@ routescan(app, {
     ignoreInvalid: true
 });
 
-app.listen(8081, ()=>{
-    console.log('API listening on port 8081');
+app.listen(3001, ()=>{
+    console.log('API listening on port 3001');
 });
