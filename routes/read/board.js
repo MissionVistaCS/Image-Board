@@ -6,12 +6,12 @@ module.exports = {
 		fn: function(req, res, next) {
 			let letter = req.query.letter;
 
-			Boards.findOne({letter: letter}, function(err, results) {
+			Boards.findOne({ letter: letter }, function (err, result) {
 				if(err) {
-					console.log("Error!");
-				} else {
-				        res.json({ name: results.name, favicon: results.favicon });
+					return next(err);
 				}
+
+				res.json({ result: { name: result.name, favicon: result.favicon } });
 			});
 		}
 	}

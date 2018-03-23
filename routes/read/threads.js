@@ -7,9 +7,9 @@ module.exports = {
 			let letter = req.query.letter;
 			Threads.find({ letter: letter }, function(err, results) {
 				if(err) {
-					console.log('Error!');
+					return next(err);
 				} else {
-					res.json({ results: results });	//returns all threads
+					res.json({ result: results });
 				}
 			});
 		}

@@ -6,13 +6,13 @@ module.exports = {
 		fn: function(req, res, next) {
 			let letter = req.query.letter;
 			//post id, name, content, pinned, time
-			Threads.findOne({letter: letter}, function(err, results) {
+			Threads.findOne({letter: letter}, function(err, result) {
 				if(err) {
-					console.log("Error!");
+					return next(err);
 				} else {
-					res.json({id: req.query.id, name: req.query.name, 
-							  content: req.query.content, pinned: req.query.pinned,
-							  time: req.query.time});
+					res.json({ result: { id: result.id, letter: letter, name: result.name,
+							  content: result.content, pinned: result.pinned,
+							  time: result.time } });
 				}
 			});
 		}
