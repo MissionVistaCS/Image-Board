@@ -1,29 +1,32 @@
-//const auth = require(_base + 'middleware/authenticate');
-
 const Category = require(_base + 'models/category');
 
 module.exports = {
     '/create/category': {
-	methods: ['post'],
-	middleware: [],
-	fn: function(req, res, next) {
-	     const name = req.body.name;
-	     Category.findOne({name: name}, function (err, result) {
-		     if (err) {
-			 console.log('Error!!!');
-		     } else if (result) {
-			 console.log('Already exists!!11!');
-		     } else {
-			 let cat = new Category({name: name});
-			 cat.save(function (err) {
-			      if (err) {
-				  return console.log("err");
-			      } else {
-				  res.json({result: "YES!!!!"});
-			      }
-			 });
-		     }
-	     });
-	}
+        methods: ['post'],
+        middleware: [],
+        fn: function(req, res, next) {
+            const name = req.body.name;
+            Category.findOne({ name: name }, function(err, result) {
+                if (err) {
+                    return next(err);
+                }
+
+                if (result) {
+                    return next(new Error('Category with that name already exists.'));
+                }
+
+                let cat = new Category({
+                    name: name
+                });
+
+                cat.save(function(err) {
+                    if (err) {
+                        return next(err);
+                    }
+
+                    res.json({ result: { name: name } });
+                });
+            });
+        }
     }
 }

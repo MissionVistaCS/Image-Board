@@ -7,22 +7,24 @@ module.exports = {
 			let name = req.body.name,
 				board = req.body.board,
 				attachments = req.body.attachments;
-			Thread.findOne({name: name}, function(err, result) {
-				if(err) {
-					console.log("Error!");
-				} else if(result) {
-					console.log("Thread Already Exists!");
-				} else {
-					let thread = new Thread({name: name, board: board, 
-						attachments: attachments});
-					thread.save(function(err) {
-						if(err) {
-							console.log("Error!");
-						} else {
-							res.json({result: "Success!"});
-						}
-					});
+
+			Thread.findOne({ name: name }, function (err, result) {
+				if (err) {
+					return next(err);
 				}
+
+				if (result) {
+					return next(new Error('Thread with that name already exists.'));
+				}
+
+				let thread = new Thread({ name: name, board: board, attachments: attachments });
+				thread.save(function(err) {
+					if(err) {
+						return next(err);
+					}
+
+					res.json({result: "Success!"});
+				});
 			});
 		}
 	}
