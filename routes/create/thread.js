@@ -23,7 +23,11 @@ module.exports = {
 						return next(err);
 					}
 
-					res.json({result: "Success!"});
+					res.json({ result: { 
+						name: name, 
+						board: board,
+						attachments: attachments }
+					});
 				});
 			});
 		}

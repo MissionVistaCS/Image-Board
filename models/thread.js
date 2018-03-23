@@ -8,7 +8,7 @@ let threadSchema = mongoose.Schema({
     name: { type: String, required: true },
     content: { type: String, required: true },
     attachment: { type: String, required: false },
-    timeStamp: { type: Date, required: true, default: Date.now },
+    timeStamp: { type: Date, required: true, default: Date.now() },
     ip: { type: String, required: true },
     pinned: { type: Boolean, required: true }
 }, { collection: _db.get("db.collection.threads") });
