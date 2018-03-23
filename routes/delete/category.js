@@ -5,7 +5,12 @@ module.exports = {
         methods: ['delete'],
         fn: function(req, res, next) {
             let name = req.query.name;
-            Category.findOneAndRemove({ name: name }); //TODO: Add callback function TYLER
+            Category.findOneAndRemove({ name: name }, function(err, category) {
+              if(err) {
+                return next(err);
+              }
+              res.json({result: category});
+            });
         }
     }
 };
