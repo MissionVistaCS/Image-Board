@@ -43,6 +43,12 @@ routescan(app, {
     ignoreInvalid: true
 });
 
+app.use(function (err, req, res, next) {
+    console.debug('Error encountered: ' + err.message);
+    console.error(err);
+    res.json({ error: err.message });
+});
+
 app.listen(3001, ()=>{
     console.log('API listening on port 3001');
 });
