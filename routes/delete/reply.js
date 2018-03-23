@@ -5,7 +5,12 @@ module.exports = {
         methods: ['delete'],
         fn: function(req, res, next) {
             let _id = req.query._id;
-            Reply.findByIdAndRemove(_id); // TODO: Add callback function TYLER
+            Reply.findByIdAndRemove(_id, function(err, reply) {
+              if(err) {
+                return next(err);
+              }
+              res.json({result: reply});
+            });
         }
     }
 };
