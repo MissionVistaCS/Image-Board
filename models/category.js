@@ -7,5 +7,4 @@ let categorySchema = new mongoose.Schema({
 }, { collection: _db.get("db.collection.category") });
 
 let Category = mongoose.model("Category", categorySchema);
-
 module.exports = Category;
