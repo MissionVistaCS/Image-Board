@@ -26,9 +26,9 @@ module.exports = {
 					if(err) {
 						return next(err);
 					}
+					res.json({ result: { letter: letter }});
 				});
 
-				res.json({ result: { letter: letter }});
 			});
 		}
 	}

@@ -23,9 +23,9 @@ module.exports = {
 					if(err) {
 						return next(err);
 					}
-				});
+					res.json({ result: { email: email } });
 
-				res.json({ result: { email: email } });
+				});
 			});
 		}
 	}
