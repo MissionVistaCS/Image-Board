@@ -4,7 +4,7 @@ module.exports = {
     '/delete/category': {
         methods: ['delete'],
         fn: function(req, res, next) {
-            let name = req.query.name;
+            let name = req.body.name;
             Category.findOneAndRemove({ name: name }, function(err, category) {
               if(err) {
                 return next(err);
