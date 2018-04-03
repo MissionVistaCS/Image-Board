@@ -1,12 +1,22 @@
 const Thread = require(_base + 'models/thread');
+const fs = require('fs');
+const path = _base + 'uploads/'
+const multer = require('multer');
+const upload = multer({ dest: './uploads/'});
 
 module.exports = {
 	'/create/thread' : {
-		methods: ['post'],
-		fn: function (req, res, next) {
+	    methods: ['post'],
+	    middleware: [upload.single("attachment")],
+	        fn: function (req, res, next) {
+		    console.log(req.file);
 			let name = req.body.name,
-				board = req.body.board,
-				attachments = req.body.attachments;
+			    board = req.body.board,
+			    attachment = req.file,
+			    pinned = req.body.pinned,
+			    ip = req.body.ip,
+			    content = req.body.content,
+			    title = req.body.title;
 
 			Thread.findOne({ name: name }, function (err, result) {
 				if (err) {
@@ -17,16 +27,31 @@ module.exports = {
 					return next(new Error('Thread with that name already exists.'));
 				}
 
-				let thread = new Thread({ name: name, board: board, attachments: attachments });
+			        let target_path = path + attachment.originalname;
+			    let thread = new Thread({ name: name, boardId: board, attachments: target_path, pinned: pinned, ip: ip, content: content, title: title });
 				thread.save(function(err) {
-					if(err) {
+				    console.log(req.files);
+				        if(err) {
 						return next(err);
 					}
 
+				        //Save file to fs	
+				        fs.rename(attachment.path, target_path, function(err) {
+					    if(err) {
+					        return next(err);
+					    }
+					
+					    fs.unlink(attachment.path, function() {
+					        if(err) {
+						    return next(err);
+					        }
+					    });
+					});
+				    
 					res.json({ result: { 
 						name: name, 
 						board: board,
-						attachments: attachments }
+						attachments: target_path }
 					});
 				});
 			});
