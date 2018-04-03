@@ -4,7 +4,7 @@ module.exports = {
     '/delete/thread': {
         methods: ['delete'],
         fn: function(req, res, next) {
-            let _id = req.query._id;
+            let _id = req.body._id;
             Thread.findByIdAndRemove(_id, function(err, thread) {
               if(err) {
                 return next(err);

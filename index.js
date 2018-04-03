@@ -3,7 +3,8 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       session = require("express-session"),
       cookieParser = require('cookie-parser'),
-      PropertiesReader = require('properties-reader');
+      PropertiesReader = require('properties-reader'),
+      multer = require('multer');
 const app = express();
 
 app.use(bodyParser.json());
