@@ -7,7 +7,8 @@ let threadSchema = mongoose.Schema({
     boardId: { type: String, required: true },
     name: { type: String, required: true },
     content: { type: String, required: true },
-    attachment: { type: String, required: false },
+    attachment_path: { type: String, required: false },
+    attachment_name: { type: String, required: false },
     timeStamp: { type: Date, required: true, default: Date.now() },
     ip: { type: String, required: true },
     pinned: { type: Boolean, required: true }
