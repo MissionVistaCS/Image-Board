@@ -14,7 +14,7 @@ module.exports = {
 			    board = req.body.board,
 			    attachment = req.file,
 			    pinned = req.body.pinned,
-			    ip = req.body.ip,
+			    ip = req.connection.remoteAddress,
 			    content = req.body.content,
 			    title = req.body.title;
 
@@ -27,8 +27,8 @@ module.exports = {
 					return next(new Error('Thread with that name already exists.'));
 				}
 
-			        let target_path = path + attachment.originalname;
-			    let thread = new Thread({ name: name, boardId: board, attachments: target_path, pinned: pinned, ip: ip, content: content, title: title });
+			    let target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();;
+			    let thread = new Thread({ name: name, boardId: board, attachment_path: target_path, attachment_name: attachment.originalname, pinned: pinned, ip: ip, content: content, title: title });
 				thread.save(function(err) {
 				    console.log(req.files);
 				        if(err) {
@@ -51,7 +51,11 @@ module.exports = {
 					res.json({ result: { 
 						name: name, 
 						board: board,
-						attachments: target_path }
+   					        attachment_name: attachment.originalname,
+					        content: content,
+					        title: title,
+					        pinned: pinned
+					}
 					});
 				});
 			});
