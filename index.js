@@ -38,7 +38,10 @@ console.critical = function(message) {
 }
 
 const setUpDatabase = require(_base + 'services/SetupDatabaseService');
+const setUpPassport = require(_base + 'services/SetUpPassport');
+
 setUpDatabase();
+setUpPassport();
 
 routescan(app, {
     ignoreInvalid: true
