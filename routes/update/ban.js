@@ -5,7 +5,6 @@ module.exports = {
 	methods: ['put'],
 	middleware: [],
 	fn: function(req, res, next) {
-	    const banId = req.body.id;
 
 	    let updateFields = {};
 	    ip = req.body.ip;
