@@ -3,6 +3,7 @@ let shortid = require("shortid");
 
 let banSchema = new mongoose.Schema({
     _id: { type: String, required: true, default: shortid.generate },
+    message: { type: String, required: false },
     time: { type: Date, required: true, default: Date.now },
     ip: { type: String, required: true }
 });

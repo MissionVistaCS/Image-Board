@@ -5,11 +5,9 @@ module.exports = {
 		methods: ['post'],
 		fn: function(req, res, next) {
 			let ip = req.body.ip,
-				time = req.body.time,
-				message = req.body.message,
-				_id = req.body._id;
+			    message = req.body.message;
 
-			Ban.findOne({ _id: _id }, function(err, result) {
+			Ban.findOne({ ip: ip }, function(err, result) {
 				if(err) {
 					return next(err);
 				} 
@@ -18,13 +16,12 @@ module.exports = {
 					return next(new Error('Ban with this id already exists!'));
 				}
 
-				let ban = new Ban({ ip: ip, time: time,
-									_id: _id, message: message });
+				let ban = new Ban({ ip: ip, message: message });
 				ban.save(function(err) {
 					if(err) {
 						return next(err);
 					}
-					res.json({ _id: _id, message: message, time: time, ip: ip});
+				    res.json({ message: message, ip: ip});
 				});
 
 			});

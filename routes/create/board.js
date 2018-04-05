@@ -18,7 +18,7 @@ module.exports = {
 					return next(new Error("Board with that name already exists!"));
 				}
 
-				let board = new Board({ category: category,
+				let board = new Board({ categoryName: category,
 										name: name, 
 										letter: letter,
 										favicon: favicon });
@@ -26,7 +26,9 @@ module.exports = {
 					if(err) {
 						return next(err);
 					}
-					res.json({ result: { letter: letter }});
+				    res.json({ result: { letter: letter,
+							 category: category,
+							 name: name }});
 				});
 
 			});
