@@ -8,14 +8,17 @@ module.exports = {
 	    const banId = req.body.id;
 
 	    let updateFields = {};
-	    if(req.body.ip !== undefined) {
-		updateFields.ip = req.body.ip;
-	    }
+	    ip = req.body.ip;
+
 	    if(req.body.time !== undefined) {
 		updateFields.time = req.body.time;
 	    }
+
+	    if(req.body.message !== undefined) {
+		updateFields.message = req.body.message;
+	    }
 	    
-	    Ban.findOneAndUpdate({ _id: banId }, updateFields, function(err, result) {
+	    Ban.findOneAndUpdate({ ip: ip }, updateFields, function(err, result) {
 		if(err) {
 		    return next(err);
 		}
