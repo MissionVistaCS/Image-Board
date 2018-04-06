@@ -16,6 +16,8 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false, maxAge: Number(100000) }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Globals
 

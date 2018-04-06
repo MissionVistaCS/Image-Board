@@ -1,8 +1,10 @@
-const Ban = require(_base + 'models/ban');
+const Ban = require(_base + 'models/ban'),
+			ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
 
 module.exports = {
 	'/create/ban': {
 		methods: ['post'],
+		middleware: [ensureAuthenticity(req, res, next)],
 		fn: function(req, res, next) {
 			let ip = req.body.ip,
 			    message = req.body.message;
@@ -10,7 +12,7 @@ module.exports = {
 			Ban.findOne({ ip: ip }, function(err, result) {
 				if(err) {
 					return next(err);
-				} 
+				}
 
 				if(result) {
 					return next(new Error('Ban with this id already exists!'));
@@ -27,5 +29,5 @@ module.exports = {
 			});
 		}
 	}
-	
+
 }
