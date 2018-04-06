@@ -3,17 +3,17 @@ const Ban = require(_base + 'models/ban');
 module.exports = {
     '/update/ban': {
 	methods: ['put'],
-	middleware: [],
+	middleware: [ensureAuthenticity],
 	fn: function(req, res, next) {
 
 	    let updateFields = {};
-	    ip = req.body.ip;
+	    const ip = req.body.ip;
 
-	    if(req.body.time !== undefined) {
+	    if(req.body.time) {
 		updateFields.time = req.body.time;
 	    }
 
-	    if(req.body.message !== undefined) {
+	    if(req.body.message) {
 		updateFields.message = req.body.message;
 	    }
 	    
@@ -22,9 +22,7 @@ module.exports = {
 		    return next(err);
 		}
 
-		if(result) {
 		    res.json({ result: result });
-		}
 	    });
 	}
     }
