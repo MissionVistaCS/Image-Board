@@ -3,9 +3,11 @@ const Board = require(_base + 'models/board.js');
 module.export = {
 	'/update/board': {
 		methods: ['put'],
+		middleware: [ensureAuthenticity],
 		fn: function(req, res, next) {
-			const letter = req.body.letter;
+
 			let updateFields = {};
+			const letter = req.body.letter;
 
 			if(req.body.category) {
 				updateFields.category = req.body.category;
