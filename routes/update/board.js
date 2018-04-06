@@ -1,6 +1,6 @@
 const Board = require(_base + 'models/board.js');
 
-modules.export = {
+module.export = {
 	'/update/board': {
 		methods: ['put'],
 		fn: function(req, res, next) {

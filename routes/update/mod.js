@@ -1,6 +1,6 @@
 const Mod = require(_base + 'models/mod.js');
 
-modules.export = {
+module.export = {
 	'/update/mod': {
 		methods: ['put'],
 		middleware: [''],

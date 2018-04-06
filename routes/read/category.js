@@ -1,6 +1,6 @@
 const Category = (_base + "models/category.js");
 
-modules.export = {
+module.export = {
 	"/read/category": {
 		methods: ['get'],
 		fn: function(req, res, next) {

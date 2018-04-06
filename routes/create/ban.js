@@ -4,7 +4,7 @@ const Ban = require(_base + 'models/ban'),
 module.exports = {
 	'/create/ban': {
 		methods: ['post'],
-		middleware: [ensureAuthenticity(req, res, next)],
+		middleware: [ensureAuthenticity],
 		fn: function(req, res, next) {
 			let ip = req.body.ip,
 			    message = req.body.message;

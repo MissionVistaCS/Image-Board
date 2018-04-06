@@ -6,6 +6,7 @@ module.exports = function() {
   passport.serializeUser(function(mod, done) {
     done(null, mod._id);
   });
+    
   passport.deserializeUser(function(_id, done) {
     Mod.findById(_id, function(err, mod) {
       done(err, mod);
@@ -13,13 +14,14 @@ module.exports = function() {
   });
 }
 
-let strategy = new LocalStrategy(function(_id, password, done) {
-  Mod.findById(_id, function(err, mod) {
+let strategy = new LocalStrategy(function(email, password, done) {
+    Mod.findOne({ email: email }, function(err, mod) {
     if(err) {
       return done(err);
     } else if(!mod) {
-      return done(null, false, { message: "No such mod of id " + _id });
+      return done(null, false, { message: "No such mod of email " + email });
     }
+	
     mod.checkPassword(password, function(err, matching) {
       if(err) {
         return done(err);
@@ -31,4 +33,5 @@ let strategy = new LocalStrategy(function(_id, password, done) {
     });
   });
 });
+
 passport.use("login", strategy);

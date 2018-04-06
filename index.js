@@ -4,7 +4,8 @@ const express = require('express'),
       session = require("express-session"),
       cookieParser = require('cookie-parser'),
       PropertiesReader = require('properties-reader'),
-      multer = require('multer');
+      multer = require('multer'),
+      passport = require('passport');
 const app = express();
 
 app.use(bodyParser.json());
