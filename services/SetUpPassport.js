@@ -22,7 +22,7 @@ let strategy = new LocalStrategy({ usernameField: 'email' }, function(email, pas
       return done(null, false, { message: "No such mod of email " + email });
     }
 
-    mod.checkPassword(password, function(err, matching) {
+    mod.checkPassword(password, function(err, match) {
       if(err) {
         return done(err);
       } else if(match) {

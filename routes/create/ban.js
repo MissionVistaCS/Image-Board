@@ -1,5 +1,5 @@
 const Ban = require(_base + 'models/ban'),
-			ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
+	    ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
 
 module.exports = {
 	'/create/ban': {

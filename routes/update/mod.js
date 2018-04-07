@@ -1,4 +1,5 @@
-const Mod = require(_base + 'models/mod.js');
+const Mod = require(_base + 'models/mod.js'),
+      ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
 
 module.export = {
 	'/update/mod': {
@@ -23,7 +24,7 @@ module.export = {
 				} 
 
 				res.json({ result: result });
-			}
+			});
 		}
 	}
 

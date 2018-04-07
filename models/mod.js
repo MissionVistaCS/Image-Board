@@ -16,7 +16,11 @@ let modSchema = new mongoose.Schema({
 // };
 // TODO: remove this test implementation of the checkPassword method
 modSchema.methods.checkPassword = function(guess, done) {
-  done(null, true);
+    if(guess === this.password) {
+	done(null, true);
+    } else {
+	done(null, false);
+    }
 }
 let Mod = mongoose.model('Mod', modSchema);
 module.exports = Mod;
