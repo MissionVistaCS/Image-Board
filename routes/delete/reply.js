@@ -2,7 +2,7 @@ const Reply = require(_base + 'models/reply');
 
 module.exports = {
     '/delete/reply': {
-        methods: ['delete'],
+        methods: ['post'],
         fn: function(req, res, next) {
             let _id = req.body._id;
             Reply.findByIdAndRemove(_id, function(err, reply) {

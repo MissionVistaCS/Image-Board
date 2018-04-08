@@ -10,21 +10,25 @@
             <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div>
         </div>
         <hr class="abovePostLink">
-        <div id="postLink"> [<a :href="$route.params.thread + '/post'">Post a Reply</a>]</div>
+        <div id="postLink"> [<a href="#" v-on:click="toggleReplyBox">Post a Reply</a>]</div>
         <hr>
         <div class="board">
             <div class="thread">
                 <div class="postContainer opContainer">
-                    <div id="{UID}" class="post op">
-                        <div class="file">
+                    <div v-bind:id="thread._id" class="post op">
+                        <div v-if="thread.attachment_path" class="file">
                             <div class="fileText"> File: <a :href="'/' + thread.attachment_path">{{ thread.attachment_name }}</a></div>
-                            <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank"> <img
-                                    :src="'/' + thread.attachment_path">
-                            </a></div>
+                            <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank" v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(thread.attachment_name.split('.').pop())">
+			       	<img :src="'/' + thread.attachment_path">
+                            </a>
+			    <video class="fileThumb" v-if="new Array('webm').includes(thread.attachment_name.split('.').pop())" controls="">
+			    	<source :src="'/' + thread.attachment_path"></source>
+			    </video>
+			    </div>
                         <div class="postInfo"><span class="subject">{{ thread.title }}</span> <span class="nameBlock"> <span
                                 class="name">{{ thread.name }}</span> </span> <span class="dateTime"
-                                                                            data-utc="1523057718{INSERT}">{{ new Date(thread.timeStamp) }}</span>
-                            <span class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
+                                                                              >{{ new Date(thread.timeStamp) }}</span>
+                            <span class="postNum"> <a :href="'#' + thread._id" title="Link to this post">No.</a> <a
                                     href="{JS FOR APPENDING ID TO REPLY}"
                                     title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
                         <blockquote class="postMessage" v-html="thread.content">
@@ -35,15 +39,15 @@
 
                 <div v-for="reply in replies" class="postContainer replyContainer">
                     <div class="sideArrows">>></div>
-                    <div class="post reply">
+                    <div class="post reply" v-bind:id="reply._id">
                         <div v-if="reply.attachment_path" class="file">
                             <div class="fileText"> File: <a :href="'/' + reply.attachment_path">{{ reply.attachment_name }}</a></div>
                             <a class="fileThumb" :href="'/' + reply.attachment_path" target="_blank"> <img :src="'/' + reply.attachment_path"> </a>
                         </div>
                         <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
-                                class="dateTime" data-utc="1523057718{INSERT}">{{ new Date(reply.time) }}</span> <span
-                                class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
-                                href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button></span>
+                                class="dateTime">{{ new Date(reply.time) }}</span> <span
+                                class="postNum"> <a :href="'#' + reply_id" title="Link to this post">No.</a> <a
+                                href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
                         </div>
                         <blockquote
                                 class="postMessage"> {{ reply.content }}
@@ -56,12 +60,46 @@
                             href="catalog.php#top">Top</a> / <a href="/" target="_top">Home</a> ] </span></div>
                     <br>
                 </div>
+                </div>
+            </div>
+
+            <div class="replyBox" v-if="replyBoxShown">
+                <p>Post Reply</p>
+                <form name="post" action="/create/reply" method="post" enctype="multipart/form-data">
+                    <tbody>
+                    <tr style="display: none;" data-type="Thread">
+                        <td>Thread</td>
+                        <td><input id="thread" name="threadId" type="text" v-model="thread._id"></td>
+                    </tr>
+                    <tr data-type="Content">
+                        <td>Content</td>
+                        <td><textarea name="content" cols="48" rows="4" wrap="soft" tabindex="4"></textarea></td>
+                    </tr>
+                    <tr data-type="File">
+                        <td>File</td>
+                        <td><input id="postFile" name="attachment" type="file" tabindex="7">
+                        </td>
+                    </tr>
+                    </tbody>
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+        </div>
 </template>
 
 <style scoped>
     a, a:visited {
         color: #34345c;
         text-decoration: none;
+    }
+
+    .replyBox {
+        position: fixed;
+        border-style: solid;
+        left: 600px;
+        top: 200px;
+        border-color: black;
+        border-width: 2px;
     }
 
     .abovePostLink {
@@ -159,7 +197,7 @@
         margin-left: 2px;
     }
 
-    .fileThumb img {
+    .fileThumb img, video {
         max-width: 250px;
         max-height: 250px;
         height: auto;
@@ -209,6 +247,7 @@
                 board: {},
                 replies: [],
                 isMod: false,
+                replyBoxShown: false,
                 boardList: "t / r / a / p"
             }
         },
@@ -241,6 +280,17 @@
                     else if (res.result) {
                         vm.board = res.result;
                         console.log(vm.board);
+                    }
+                });
+            },
+            deleteReply(reply) {
+                let vm = this;
+                _api.deleteReply(reply._id, function (err, res) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else if (res.result) {
+                        vm.$router.go(vm.$router.currentRoute);
                     }
                 });
             },
@@ -284,6 +334,10 @@
                         vm.isMod = res.result;
                     }
                 });
+            },
+            toggleReplyBox() {
+                let vm = this;
+                vm.replyBoxShown = !vm.replyBoxShown;
             },
             compileBoardList() {
                 let vm = this;

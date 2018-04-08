@@ -17,15 +17,18 @@
                 <tr>
                     <td style="text-align: center; width: 65px;">Password</td>
                     <td>
-                        <input name="password" style="width: 145px; text-align: center" type="password" v-model="password">
+                        <input name="password" style="width: 145px; text-align: center" type="password"
+                               v-model="password">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="padding: 5px 0; border: none; background: none; text-align: center; font-weight: normal; padding-bottom: 20px">
+                    <td colspan="2"
+                        style="padding: 5px 0; border: none; background: none; text-align: center; font-weight: normal; padding-bottom: 20px">
                         <input value="Submit" style="margin: 0px;" type="button" v-on:click="login">
                     </td>
                 </tr>
                 </tbody>
+                <p v-if="error">{{ error }}</p>
             </table>
         </form>
     </div>
@@ -36,32 +39,38 @@
         text-align: center;
         clear: both;
     }
+
     .boardBanner .boardTitle {
-        font-family: Tahoma,sans-serif;
+        font-family: Tahoma, sans-serif;
         font-size: 28px;
         font-weight: 700;
         letter-spacing: -2px;
         margin-top: 0;
         color: #AF0A0F;
     }
+
     body {
         background: #eef2ff url(http://s.4cdn.org/image/fade-blue.png) top center repeat-x;
     }
+
     hr {
         border: 0;
         border-top: 1px solid #b7c5d9;
         height: 0;
     }
+
     table {
         border-spacing: 1px;
         margin-left: auto;
         margin-right: auto;
     }
+
     td {
         margin: 0;
         padding: 0;
         font-size: 10pt;
     }
+
     td:first-child {
         background-color: #D6DAF0;
         border: 1px solid #34345C;
@@ -92,6 +101,9 @@
                     else if (res.result) {
                         vm.loggedIn = true;
                         vm.$router.push('/');
+                    }
+                    else if (res.error) {
+                        vm.error = res.error;
                     }
                 });
             },

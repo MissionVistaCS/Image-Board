@@ -16,12 +16,16 @@ module.exports = {
 			    ip = req.connection.remoteAddress,
 			    content = req.body.content;
 
+		    if(!allowedExt.includes(attachment.originalname.split('.').pop())) {
+			attachment = null;
+		    }
+		    
 		    //String formatting (Yes, I know this is janky)
 		    content = striptags(content);
 		    let contentLines = content.split(new RegExp('\r?\n', 'g'));
 		    let contentFinal = "";
 		    for(let i=0; i< contentLines.length; i++) {
-			lineContent = contentLines[i].replace(new RegExp('\\>', 'g'), "<span style='color: #789922;'>>");
+			lineContent = contentLines[i].replace(new RegExp('\\>'), "<span style='color: #789922;'>>");
 			if(lineContent.includes("<span style='color: #789922;'>>")) {
 			    contentLines[i] = lineContent + "</span>";
 			}
