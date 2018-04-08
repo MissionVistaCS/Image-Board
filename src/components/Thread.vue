@@ -10,7 +10,7 @@
             <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div>
         </div>
         <hr class="abovePostLink">
-        <div id="postLink"> [<a :href="$route.params.thread + '/post'">Post a Reply</a>]</div>
+        <div id="postLink"> [<a href="#" v-on:click="toggleReplyBox">Post a Reply</a>]</div>
         <hr>
         <div class="board">
             <div class="thread">
@@ -60,12 +60,46 @@
                             href="catalog.php#top">Top</a> / <a href="/" target="_top">Home</a> ] </span></div>
                     <br>
                 </div>
+                </div>
+            </div>
+
+            <div class="replyBox" v-if="replyBoxShown">
+                <p>Post Reply</p>
+                <form name="post" action="/create/reply" method="post" enctype="multipart/form-data">
+                    <tbody>
+                    <tr style="display: none;" data-type="Thread">
+                        <td>Thread</td>
+                        <td><input id="thread" name="threadId" type="text" v-model="thread._id"></td>
+                    </tr>
+                    <tr data-type="Content">
+                        <td>Content</td>
+                        <td><textarea name="content" cols="48" rows="4" wrap="soft" tabindex="4"></textarea></td>
+                    </tr>
+                    <tr data-type="File">
+                        <td>File</td>
+                        <td><input id="postFile" name="attachment" type="file" tabindex="7">
+                        </td>
+                    </tr>
+                    </tbody>
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+        </div>
 </template>
 
 <style scoped>
     a, a:visited {
         color: #34345c;
         text-decoration: none;
+    }
+
+    .replyBox {
+        position: fixed;
+        border-style: solid;
+        left: 600px;
+        top: 200px;
+        border-color: black;
+        border-width: 2px;
     }
 
     .abovePostLink {
@@ -213,6 +247,7 @@
                 board: {},
                 replies: [],
                 isMod: false,
+                replyBoxShown: false,
                 boardList: "t / r / a / p"
             }
         },
@@ -299,6 +334,10 @@
                         vm.isMod = res.result;
                     }
                 });
+            },
+            toggleReplyBox() {
+                let vm = this;
+                vm.replyBoxShown = !vm.replyBoxShown;
             },
             compileBoardList() {
                 let vm = this;
