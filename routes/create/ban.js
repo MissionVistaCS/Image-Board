@@ -10,20 +10,20 @@ module.exports = {
 			    message = req.body.message;
 
 			Ban.findOne({ ip: ip }, function(err, result) {
-				if(err) {
+				if (err) {
 					return next(err);
 				}
 
-				if(result) {
-					return next(new Error('Ban with this id already exists!'));
+				if (result) {
+					return next(new Error('Ban with this ip already exists!'));
 				}
 
 				let ban = new Ban({ ip: ip, message: message });
 				ban.save(function(err) {
-					if(err) {
+					if (err) {
 						return next(err);
 					}
-				    res.json({ message: message, ip: ip});
+				    res.json({ result: { message: message, ip: ip } });
 				});
 
 			});

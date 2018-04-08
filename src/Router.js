@@ -7,6 +7,7 @@ import About from './components/About.vue'
 import Login from './components/Login.vue'
 import NewThread from './components/NewThread.vue'
 import BanList from './components/BanList.vue'
+import Ban from './components/Ban.vue'
 
 Vue.use(Router);
 
@@ -47,6 +48,11 @@ export default new Router({
             path: '/bans',
             name: 'BanList',
             component: BanList
+        },
+        {
+            path: '/ban/:ip',
+            name: 'Ban',
+            component: Ban
         }
     ]
 })
