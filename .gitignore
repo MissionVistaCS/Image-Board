@@ -3,3 +3,5 @@ node_modules/
 *.log.*
 uploads/
 package-lock.json
+*~
+.DS_Store
