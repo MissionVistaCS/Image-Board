@@ -4,17 +4,16 @@ module.exports = {
 	'/read/thread': {
 		methods: ['get'],
 		fn: function(req, res, next) {
-			let letter = req.query.letter;
+			let _id = req.query._id;
 			//post id, name, content, pinned, time
-			Threads.findOne({letter: letter}, function(err, result) {
+			console.log(_id);
+			Threads.findById(_id, function(err, result) {
 				if(err) {
 					return next(err);
 				} else {
-					res.json({ result: { id: result.id, letter: letter, name: result.name,
-							  content: result.content, pinned: result.pinned,
-							  time: result.time } });
+					res.json({ result: result });
 				}
 			});
 		}
 	}
-}
+};

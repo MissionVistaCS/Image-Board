@@ -1,37 +1,39 @@
-let LocalStrategy =  require('passport-local').Strategy,
-    Mod = require(_base + 'models/mod'),
-    passport = require("passport");
+var passport = require("passport");
 
-module.exports = function() {
-  passport.serializeUser(function(mod, done) {
-    done(null, mod._id);
-  });
+var LocalStrategy = require("passport-local").Strategy;
 
-  passport.deserializeUser(function(_id, done) {
-    Mod.findById(_id, function(err, mod) {
-      done(err, mod);
+var User = require(_base + "models/mod");
+
+module.exports = function () {
+    passport.serializeUser(function (user, done) {
+        done(null, user._id);
     });
-  });
-}
-
-let strategy = new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
-    Mod.findOne({ email: email }, function(err, mod) {
-    if(err) {
-      return done(err);
-    } else if(!mod) {
-      return done(null, false, { message: "No such mod of email " + email });
-    }
-
-    mod.checkPassword(password, function(err, matching) {
-      if(err) {
-        return done(err);
-      } else if(match) {
-        return done(null, mod);
-      } else {
-        return done(null, false, { message: "Incorrect password." })
-      }
+    passport.deserializeUser(function (id, done) {
+        User.findById(id, function (err, user) {
+            done(err, user);
+        });
     });
-  });
-});
+};
 
-passport.use("login", strategy);
+passport.use("login", new LocalStrategy(function (username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+        if (err) {
+            return done(err);
+        }
+        if (!user) {
+            return done(null, false,
+                { message: "Invalid username or password." });
+        }
+        user.checkPassword(password, function (err, isMatch) {
+            if (err) {
+                return done(err);
+            }
+            if (isMatch) {
+                return done(null, user);
+            } else {
+                return done(null, false,
+                    { message: "Invalid username or password." });
+            }
+        });
+    });
+}));

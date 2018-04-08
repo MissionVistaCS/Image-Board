@@ -4,9 +4,9 @@ module.exports = {
 	'/create/mod': {
 		methods: ['post'],
 		fn: function(req, res, next) {
-			let email = req.body.email,
-				password = req.body.passowrd;
-			Mod.findOne({ email: email }, function(err, result) {
+			let username = req.body.username,
+				password = req.body.password;
+			Mod.findOne({ username: username }, function(err, result) {
 				if (err) {
 					return next(err);
 				} 
@@ -14,8 +14,8 @@ module.exports = {
 					return next(new Mod("Mod with that email already exists"));
 				} 
 
-				let mod = new Mod({ 
-					email: email, 
+				let mod = new Mod({
+					username: username,
 					password: password 
 				});
 
@@ -23,7 +23,7 @@ module.exports = {
 					if(err) {
 						return next(err);
 					}
-					res.json({ result: { email: email } });
+					res.json({ result: { username: username } });
 				});
 			});
 		}

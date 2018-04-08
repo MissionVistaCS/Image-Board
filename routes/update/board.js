@@ -3,7 +3,7 @@ const Board = require(_base + 'models/board.js');
 module.export = {
 	'/update/board': {
 		methods: ['put'],
-		middleware: [ensureAuthenticity],
+		middleware: [],
 		fn: function(req, res, next) {
 
 			let updateFields = {};

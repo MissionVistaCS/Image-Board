@@ -1,6 +1,6 @@
 const Thread = require(_base + 'models/thread');
 const fs = require('fs');
-const path = _base + 'uploads/'
+const path = 'uploads/';
 const multer = require('multer');
 const upload = multer({ dest: './uploads/'});
 
@@ -27,7 +27,7 @@ module.exports = {
 					return next(new Error('Thread with that name already exists.'));
 				}
 
-			    let target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();;
+			    let target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
 			    let thread = new Thread({ name: name, boardId: board, attachment_path: target_path, attachment_name: attachment.originalname, pinned: pinned, ip: ip, content: content, title: title });
 				thread.save(function(err) {
 				    console.log(req.files);

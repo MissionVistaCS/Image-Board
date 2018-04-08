@@ -3,7 +3,7 @@ const Ban = require(_base + 'models/ban');
 module.exports = {
     '/update/ban': {
 	methods: ['put'],
-	middleware: [ensureAuthenticity],
+	middleware: [],
 	fn: function(req, res, next) {
 
 	    let updateFields = {};

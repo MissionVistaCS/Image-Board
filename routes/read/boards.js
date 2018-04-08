@@ -10,7 +10,7 @@ module.exports = {
                 letter = req.query.letter,
                 favicon = req.query.favicon;
 
-            let boards = Boards.find({ letter: letter }, function(err, results) {
+            Boards.find({}, function(err, results) {
                 if (err) {
                     return next(err);
                 }
@@ -19,4 +19,4 @@ module.exports = {
             });
         }
     }
-}
+};

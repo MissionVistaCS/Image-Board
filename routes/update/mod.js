@@ -3,7 +3,7 @@ const Mod = require(_base + 'models/mod.js');
 module.export = {
 	'/update/mod': {
 		methods: ['put'],
-		middleware: [ensureAuthenticity],
+		middleware: [],
 		fn: function(req, res, next) {
 			
 			let updateFields = {};
@@ -23,7 +23,7 @@ module.export = {
 				} 
 
 				res.json({ result: result });
-			}
+			});
 		}
 	}
 

@@ -2,7 +2,7 @@ let mongoose = require("mongoose");
 
 let boardSchema = new mongoose.Schema({
     
-    categoryName: { type: String, required: true, unique: true },
+    categoryName: { type: String, required: true },
     name: { type: String, required: true, unique: true },
     letter: { type: String, required: true, unique: true },
     favIcon: { type: String }

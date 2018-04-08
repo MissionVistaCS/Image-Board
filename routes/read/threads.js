@@ -5,7 +5,7 @@ module.exports = {
 		methods: ['get'],
 		fn: function(req, res, next) {
 			let letter = req.query.letter;
-			Threads.find({ letter: letter }, function(err, results) {
+			Threads.find({ boardId: letter }, function(err, results) {
 				if(err) {
 					return next(err);
 				} else {
@@ -14,4 +14,4 @@ module.exports = {
 			});
 		}
 	}
-}
+};

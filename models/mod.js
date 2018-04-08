@@ -1,22 +1,43 @@
 let mongoose = require("mongoose"),
-//    bcrypt = require("bcrypt"),
+    bcrypt = require("bcrypt-nodejs"),
     shortid = require("shortid");
+
+const SALT_FACTOR = 4;
 
 let modSchema = new mongoose.Schema({
   _id: { type: String, required: true, default: shortid.generate },
-  email: { type: String, required: true },
+  username: { type: String, required: true },
   password: { type: String, required: true }
 }, { collection: _db.get("db.collection.mods") });
 
-// TODO: implement check password method
-// modSchema.methods.checkPassword = function(guess, done) {
-//   bcrypt.compare(guess, this.password, function(err, match) {
-//     done(err, match);
-//   });
-// };
-// TODO: remove this test implementation of the checkPassword method
+function noop() {};
+
+modSchema.pre('save', function (done) {
+  let user = this; //Reference to user model
+
+  if (!user.isModified("password")) {
+    return done();
+  }
+
+  bcrypt.genSalt(SALT_FACTOR, function (err, salt) {
+    if (err) {
+      return done(err);
+    }
+    bcrypt.hash(user.password, salt, noop, function (err, hashedPassword) {
+      if (err) {
+        return done(err);
+      }
+      user.password = hashedPassword;
+      done();
+    });
+  });
+});
+
 modSchema.methods.checkPassword = function(guess, done) {
-  done(null, true);
-}
+  bcrypt.compare(guess, this.password, function(err, isMatch) {
+    done(err, isMatch);
+  });
+};
+
 let Mod = mongoose.model('Mod', modSchema);
 module.exports = Mod;

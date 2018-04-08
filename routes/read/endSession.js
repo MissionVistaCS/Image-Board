@@ -1,11 +1,15 @@
 const passport = require("passport");
 
 module.exports = {
-  'read/endSession': {
+  '/read/endSession': {
     methods: ['post'],
+    middleware: [],
     fn: function(req, res, next) {
       req.logout();
-      res.redirect("/");
+      req.session.destroy(function(err) {
+        if (err) return next(err);
+        res.json({ result: 'Success' });
+      });
     }
   }
-}
+};

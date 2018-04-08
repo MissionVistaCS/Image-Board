@@ -1,5 +1,0 @@
-const _utils = {
-    page: {
-
-    }
-};
