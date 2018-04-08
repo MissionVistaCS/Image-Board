@@ -11,7 +11,10 @@ axios.defaults.withCredentials = true;
         threadsUrl: 'read/threads',
         boardUrl: 'read/board',
         threadUrl: 'read/thread',
-        repliesUrl: 'read/replies'
+        repliesUrl: 'read/replies',
+        bansUrl: 'read/bans',
+        isAuthUrl: 'read/isAuth',
+        banUrl: 'create/ban'
     };
     function url(api) {
         return root + urls[api];
@@ -65,5 +68,17 @@ axios.defaults.withCredentials = true;
 
     _api.logout = function(fn) {
         post(url('logoutUrl'), {}, fn);
+    };
+
+    _api.bans = function (fn) {
+        get(url('bansUrl'), {}, fn);
+    };
+
+    _api.isAuth = function (fn) {
+        get(url('isAuthUrl'), {}, fn);
+    };
+
+    _api.ban = function (ip, message, fn) {
+        post(url('banUrl'), { ip: ip, message: message }, fn);
     };
 })();

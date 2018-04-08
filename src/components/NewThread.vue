@@ -23,7 +23,7 @@
     </form>
 </template>
 
-<style>
+<style scoped>
 
 </style>
 

@@ -80,29 +80,11 @@ module.exports = {
                                     return next(err);
                                 }
 
-                                res.json({
-                                    result: {
-                                        name: name,
-                                        board: board,
-                                        attachment_name: attachment.originalname,
-                                        attachment_path: target_path,
-                                        content: content,
-                                        title: title,
-                                        pinned: pinned
-                                    }
-                                });
+                                res.redirect('/' + board + '/thread/' + thread._id);
                             });
                         });
                     } else {
-                        res.json({
-                            result: {
-                                name: name,
-                                board: board,
-                                content: content,
-                                title: title,
-                                pinned: pinned
-                            }
-                        });
+                        res.redirect('/' + board + '/thread/' + thread._id);
                     }
                 });
             });
