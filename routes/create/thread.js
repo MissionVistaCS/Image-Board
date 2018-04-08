@@ -10,7 +10,7 @@ module.exports = {
         methods: ['post'],
         middleware: [upload.single("attachment")],
         fn: function (req, res, next) {
-	    let allowedExt = ['png', 'jpg', 'jpeg', 'webm'];
+            let allowedExt = ['png', 'jpg', 'jpeg', 'webm'];
             let name = req.body.name,
                 board = req.body.board,
                 attachment = req.file,
@@ -19,28 +19,28 @@ module.exports = {
                 content = req.body.content,
                 title = req.body.title + ":";
 
-	    if(!allowedExt.includes(attachment.originalname.split('.').pop())) {
-		attachment = null;
-	    }
-	    
-	    //String formatting (Yes, I know this is janky)
-	    content = striptags(content);
-	    let contentLines = content.split(new RegExp('\r?\n', 'g'));
-	    let contentFinal = "";
-	    for(let i=0; i< contentLines.length; i++) {
-		lineContent = contentLines[i].replace(new RegExp('\\>'), "<span style='color: #789922;'>>");
-		if(lineContent.includes("<span style='color: #789922;'>>")) {
-		    contentLines[i] = lineContent + "</span>";
-		}
+            if (attachment && !allowedExt.includes(attachment.originalname.split('.').pop())) {
+                attachment = null;
+            }
 
-		contentFinal += contentLines[i];
-		if(i+1<contentLines.length) {
-		    contentFinal += "<br>";
-		}
-	    }
-	    content = contentFinal;
-	    
-            Thread.findOne({ title: title }, function (err, result) {
+            //String formatting (Yes, I know this is janky)
+            content = striptags(content);
+            let contentLines = content.split(new RegExp('\r?\n', 'g'));
+            let contentFinal = "";
+            for (let i = 0; i < contentLines.length; i++) {
+                lineContent = contentLines[i].replace(new RegExp('\\>'), "<span style='color: #789922;'>>");
+                if (lineContent.includes("<span style='color: #789922;'>>")) {
+                    contentLines[i] = lineContent + "</span>";
+                }
+
+                contentFinal += contentLines[i];
+                if (i + 1 < contentLines.length) {
+                    contentFinal += "<br>";
+                }
+            }
+            content = contentFinal;
+
+            Thread.findOne({title: title}, function (err, result) {
                 if (err) {
                     return next(err);
                 }
@@ -57,9 +57,9 @@ module.exports = {
                     title: title
                 });
 
-		console.log(content);
-		
-		let target_path;
+                console.log(content);
+
+                let target_path;
                 if (attachment) {
                     target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
                     thread.attachment_path = target_path;

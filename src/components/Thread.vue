@@ -29,7 +29,7 @@
                                 class="name">{{ thread.name }}</span> </span> <span class="dateTime"
                                                                               >{{ new Date(thread.timeStamp) }}</span>
                             <span class="postNum"> <a :href="'#' + thread._id" title="Link to this post">No.</a> <a
-                                    href="{JS FOR APPENDING ID TO REPLY}"
+                                    href="#" v-on:click="appendUserIdToReplyContent(thread._id)"
                                     title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
                         <blockquote class="postMessage" v-html="thread.content">
                         </blockquote>
@@ -47,7 +47,7 @@
                         <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
                                 class="dateTime">{{ new Date(reply.time) }}</span> <span
                                 class="postNum"> <a :href="'#' + reply_id" title="Link to this post">No.</a> <a
-                                href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
+                                href="#" v-on:click="appendUserIdToReplyContent(reply._id)" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
                         </div>
                         <blockquote
                                 class="postMessage"> {{ reply.content }}
@@ -73,7 +73,7 @@
                     </tr>
                     <tr data-type="Content">
                         <td>Content</td>
-                        <td><textarea name="content" cols="48" rows="4" wrap="soft" tabindex="4"></textarea></td>
+                        <td><textarea v-model="replyContent" name="content" cols="48" rows="4" wrap="soft" tabindex="4"></textarea></td>
                     </tr>
                     <tr data-type="File">
                         <td>File</td>
@@ -248,6 +248,7 @@
                 replies: [],
                 isMod: false,
                 replyBoxShown: false,
+                replyContent: '',
                 boardList: "t / r / a / p"
             }
         },
@@ -338,6 +339,11 @@
             toggleReplyBox() {
                 let vm = this;
                 vm.replyBoxShown = !vm.replyBoxShown;
+            },
+            appendUserIdToReplyContent(id) {
+                let vm = this;
+                vm.replyContent += ">>" + id;
+                vm.replyBoxShown = true;
             },
             compileBoardList() {
                 let vm = this;
