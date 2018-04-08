@@ -19,6 +19,10 @@ module.exports = {
                 content = req.body.content,
                 title = req.body.title + ":";
 
+	    if(!allowedExt.includes(attachment.originalname.split('.').pop())) {
+		attachment = null;
+	    }
+	    
 	    //String formatting (Yes, I know this is janky)
 	    content = striptags(content);
 	    let contentLines = content.split(new RegExp('\r?\n', 'g'));
@@ -68,7 +72,7 @@ module.exports = {
                         return next(err);
                     }
 
-                    if (attachment && allowedExt.includes(attachment.originalname.split('.').pop())) {
+                    if (attachment) {
                         //Save file to fs
                         fs.rename(attachment.path, target_path, function (err) {
                             if (err) {

@@ -16,6 +16,10 @@ module.exports = {
 			    ip = req.connection.remoteAddress,
 			    content = req.body.content;
 
+		    if(!allowedExt.includes(attachment.originalname.split('.').pop())) {
+			attachment = null;
+		    }
+		    
 		    //String formatting (Yes, I know this is janky)
 		    content = striptags(content);
 		    let contentLines = content.split(new RegExp('\r?\n', 'g'));
