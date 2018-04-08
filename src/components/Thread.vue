@@ -15,7 +15,7 @@
         <div class="board">
             <div class="thread">
                 <div class="postContainer opContainer">
-                    <div id="{UID}" class="post op">
+                    <div v-bind:id="thread._id" class="post op">
                         <div v-if="thread.attachment_path" class="file">
                             <div class="fileText"> File: <a :href="'/' + thread.attachment_path">{{ thread.attachment_name }}</a></div>
                             <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank"> <img
@@ -23,8 +23,8 @@
                             </a></div>
                         <div class="postInfo"><span class="subject">{{ thread.title }}</span> <span class="nameBlock"> <span
                                 class="name">{{ thread.name }}</span> </span> <span class="dateTime"
-                                                                            data-utc="1523057718{INSERT}">{{ new Date(thread.timeStamp) }}</span>
-                            <span class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
+                                                                              >{{ new Date(thread.timeStamp) }}</span>
+                            <span class="postNum"> <a :href="'#' + thread._id" title="Link to this post">No.</a> <a
                                     href="{JS FOR APPENDING ID TO REPLY}"
                                     title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
                         <blockquote class="postMessage" v-html="thread.content">
@@ -35,14 +35,14 @@
 
                 <div v-for="reply in replies" class="postContainer replyContainer">
                     <div class="sideArrows">>></div>
-                    <div class="post reply">
+                    <div class="post reply" v-bind:id="reply._id">
                         <div v-if="reply.attachment_path" class="file">
                             <div class="fileText"> File: <a :href="'/' + reply.attachment_path">{{ reply.attachment_name }}</a></div>
                             <a class="fileThumb" :href="'/' + reply.attachment_path" target="_blank"> <img :src="'/' + reply.attachment_path"> </a>
                         </div>
                         <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
-                                class="dateTime" data-utc="1523057718{INSERT}">{{ new Date(reply.time) }}</span> <span
-                                class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
+                                class="dateTime">{{ new Date(reply.time) }}</span> <span
+                                class="postNum"> <a :href="'#' + reply_id" title="Link to this post">No.</a> <a
                                 href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
                         </div>
                         <blockquote

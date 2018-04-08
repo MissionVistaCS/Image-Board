@@ -23,7 +23,7 @@
         </div>
         <hr>
         <div id="threads">
-            <div v-for="thread in threads" class="thread">
+            <div v-for="thread in threads" class="thread" v-bind:id="thread._id">
                 <a v-if="thread.attachment_path" :href="'/' + $route.params.board + '/thread/' + thread._id"> <img class="thumbnail"
                                                                                      :src="'/' + thread.attachment_path"
                                                                                      width="150"> </a>
