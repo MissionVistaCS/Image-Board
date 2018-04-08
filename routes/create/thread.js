@@ -10,15 +10,14 @@ module.exports = {
         middleware: [upload.single("attachment")],
         fn: function (req, res, next) {
             console.log(req.file);
-            let name = req.body.name,
-                board = req.body.board,
+            let board = req.body.board,
                 attachment = req.file,
-                pinned = req.body.pinned,
+                pinned = req.body.pinned | false,
                 ip = req.connection.remoteAddress,
                 content = req.body.content,
                 title = req.body.title;
 
-            Thread.findOne({title: title}, function (err, result) {
+            Thread.findOne({ title: title }, function (err, result) {
                 if (err) {
                     return next(err);
                 }
@@ -27,7 +26,6 @@ module.exports = {
                     return next(new Error('Thread with that title already exists.'));
                 }
                 let thread = new Thread({
-                    name: name,
                     boardId: board,
                     pinned: pinned,
                     ip: ip,
@@ -35,8 +33,9 @@ module.exports = {
                     title: title
                 });
 
+                let target_path;
                 if (attachment) {
-                    let target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
+                    target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
                     thread.attachment_path = target_path;
                     thread.attachment_name = attachment.originalname;
                 }
@@ -61,7 +60,6 @@ module.exports = {
 
                                 res.json({
                                     result: {
-                                        name: name,
                                         board: board,
                                         attachment_name: attachment.originalname,
                                         attachment_path: target_path,
@@ -75,7 +73,6 @@ module.exports = {
                     } else {
                         res.json({
                             result: {
-                                name: name,
                                 board: board,
                                 content: content,
                                 title: title,

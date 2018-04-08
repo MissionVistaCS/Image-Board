@@ -14,7 +14,7 @@ module.exports = {
 					return next(new Error('Board not found.'));
 				}
 
-				res.json({ result: { name: result.name, favicon: result.favicon } });
+				res.json({ result: { name: result.name, favicon: result.favicon, letter: letter } });
 			});
 		}
 	}

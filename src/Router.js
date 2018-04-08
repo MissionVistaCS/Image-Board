@@ -5,6 +5,7 @@ import Catalog from './components/Catalog.vue'
 import Thread from './components/Thread.vue'
 import About from './components/About.vue'
 import Login from './components/Login.vue'
+import NewThread from './components/NewThread.vue'
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ export default new Router({
             path: '/login',
             name: 'Login',
             component: Login
+        },
+        {
+            path: '/:board/post',
+            name: 'NewThread',
+            component: NewThread
         }
     ]
 })
