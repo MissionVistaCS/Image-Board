@@ -2,10 +2,7 @@ node_modules/
 .idea/
 *.log.*
 uploads/
-<<<<<<< HEAD
 dist/
-=======
->>>>>>> ebbb570f89e87134730dca884691f902d5e49736
 package-lock.json
 *~
 .DS_Store
