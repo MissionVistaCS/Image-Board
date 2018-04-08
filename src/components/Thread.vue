@@ -22,7 +22,7 @@
                                     :src="'/' + thread.attachment_path">
                             </a></div>
                         <div class="postInfo"><span class="subject">{{ thread.title }}</span> <span class="nameBlock"> <span
-                                class="name">Anonymous</span> </span> <span class="dateTime"
+                                class="name">{{ thread.name }}</span> </span> <span class="dateTime"
                                                                             data-utc="1523057718{INSERT}">{{ new Date(thread.timeStamp) }}</span>
                             <span class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
                                     href="{JS FOR APPENDING ID TO REPLY}"
@@ -41,7 +41,7 @@
                             <div class="fileText"> File: <a :href="'/' + reply.attachment_path">{{ reply.attachment_name }}</a></div>
                             <a class="fileThumb" :href="'/' + reply.attachment_path" target="_blank"> <img :src="'/' + reply.attachment_path"> </a>
                         </div>
-                        <div class="postInfo"><span class="nameBlock"> <span class="name">Anonymous</span> </span> <span
+                        <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
                                 class="dateTime" data-utc="1523057718{INSERT}">{{ new Date(reply.time) }}</span> <span
                                 class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
                                 href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span>
