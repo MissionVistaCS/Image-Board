@@ -10,9 +10,12 @@ module.exports = {
 				if(err) {
 					return next(err);
 				}
+				else if (!result) {
+					return next(new Error('Board not found.'));
+				}
 
 				res.json({ result: { name: result.name, favicon: result.favicon } });
 			});
 		}
 	}
-}
+};
