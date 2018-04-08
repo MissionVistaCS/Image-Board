@@ -16,7 +16,7 @@ module.exports = {
                 pinned = req.body.pinned | false,
                 ip = req.connection.remoteAddress,
                 content = req.body.content,
-                title = req.body.title;
+                title = req.body.title + ":";
 
             Thread.findOne({ title: title }, function (err, result) {
                 if (err) {

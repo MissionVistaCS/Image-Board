@@ -31,7 +31,7 @@
                     R: <b>?</b>
                 </div>
                 <div class="teaser">
-                    <b>Title: </b> {{ thread.title }}
+                    <b>{{ thread.title }}</b> {{ thread.content }}
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
         margin-bottom: 20px;
         padding: 5px 0 3px;
         position: relative;
-        max-width: 180px;
+        width: 180px;
         max-height: 320px;
     }
 
