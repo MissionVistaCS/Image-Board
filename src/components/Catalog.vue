@@ -31,7 +31,7 @@
                     R: <b>?</b>
                 </div>
                 <div class="teaser">
-                    <b>{{ thread.title }}</b> {{ thread.content }}
+                    <b>{{ thread.title }}</b> <div v-html="thread.content">{{ thread.content }}</div>
                 </div>
             </div>
         </div>

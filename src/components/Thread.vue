@@ -27,8 +27,7 @@
                             <span class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
                                     href="{JS FOR APPENDING ID TO REPLY}"
                                     title="Reply to this post">{{ thread._id }}</a> </span></div>
-                        <blockquote class="postMessage">
-                            {{ thread.content }}
+                        <blockquote class="postMessage" v-html="thread.content">
                         </blockquote>
                     </div>
                 </div>
@@ -69,7 +68,7 @@
         width: 90%;
     }
 
-    blockquote > span.quote {
+    .quote {
         color: #789922;
     }
 

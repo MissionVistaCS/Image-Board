@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = 'uploads/';
 const multer = require('multer');
 const upload = multer({ dest: './uploads/'});
+const striptags = require('striptags');
 
 module.exports = {
 	'/create/reply' : {
@@ -11,10 +12,27 @@ module.exports = {
 		fn: function (req, res, next) {
 			console.log(req.file);
 			let threadId = req.body.threadId,
-				attachment = req.file,
-				ip = req.connection.remoteAddress,
-				content = req.body.content;
+			    attachment = req.file,
+			    ip = req.connection.remoteAddress,
+			    content = req.body.content;
 
+		    //String formatting (Yes, I know this is janky)
+		    content = striptags(content);
+		    let contentLines = content.split(new RegExp('\r?\n', 'g'));
+		    let contentFinal = "";
+		    for(let i=0; i< contentLines.length; i++) {
+			lineContent = contentLines[i].replace(new RegExp('\\>', 'g'), "<span style='color: #789922;'>>");
+			if(lineContent.includes("<span style='color: #789922;'>>")) {
+			    contentLines[i] = lineContent + "</span>";
+			}
+
+			contentFinal += contentLines[i];
+			if(i+1<contentLines.length) {
+			    contentFinal += "<br>";
+			}
+		    }
+		    content = contentFinal;
+		    
             let reply = new Reply({ threadId: threadId, ip: ip, content: content });
 
             if (attachment) {
