@@ -15,7 +15,8 @@ axios.defaults.withCredentials = true;
         bansUrl: 'read/bans',
         isAuthUrl: 'read/isAuth',
         banUrl: 'create/ban',
-        deleteReplyUrl: 'delete/reply'
+        deleteReplyUrl: 'delete/reply',
+	numRepliesUrl: 'read/numReplies'
     };
     function url(api) {
         return root + urls[api];
@@ -96,4 +97,8 @@ axios.defaults.withCredentials = true;
     _api.deleteReply = function (id, fn) {
         post(url('deleteReplyUrl'), { _id: id }, fn);
     };
+
+    _api.numReplies = function (id, fn) {
+	get(url('numRepliesUrl'), { _id: _id }, fn);
+    }
 })();

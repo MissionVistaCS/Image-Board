@@ -4,11 +4,12 @@ const path = 'uploads/';
 const multer = require('multer');
 const upload = multer({dest: './uploads/'});
 const striptags = require('striptags');
+const checkBan = require(_base + 'middleware/checkBan');
 
 module.exports = {
     '/create/thread': {
         methods: ['post'],
-        middleware: [upload.single("attachment")],
+        middleware: [upload.single("attachment"), checkBan],
         fn: function (req, res, next) {
             let allowedExt = ['png', 'jpg', 'jpeg', 'webm'];
             let name = req.body.name,

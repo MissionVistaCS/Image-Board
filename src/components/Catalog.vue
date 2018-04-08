@@ -31,7 +31,7 @@
 		   </video>
 		</a>
                 <div class="meta">
-                    R: <b>?</b>
+                    R: <b>{{ thread.numReplies }}</b>
                 </div>
                 <div class="teaser">
                     <a :href="'/' + $route.params.board + '/thread/' + thread._id"><b>{{ thread.title }}</b></a> <div v-html="thread.content">{{ thread.content }}</div>
@@ -163,12 +163,14 @@
             vm.updateThreads(vm.$route.params.board);
             vm.getBoardInfo(vm.$route.params.board);
             vm.compileBoardList();
+	    vm.getThreadsNumReplies();
         },
         beforeRouteUpdate (to, from, next) {
             let vm = this;
             vm.updateThreads(to.params.board);
             vm.getBoardInfo(to.params.board);
             vm.compileBoardList();
+	    vm.getThreadsNumReplies();
             next();
         },
         methods: {
@@ -213,7 +215,20 @@
                         console.log(vm.boardList);
                     }
                 });
-            }
+            },
+	    getThreadsNumReplies() {
+	        let vm = this;
+		for(let i=0; i<vm.threads.length; i++) {
+		    _api.numReplies(vm.threads[i]._id, function (err, res) {
+		        if (err) {
+		            console.log(err);
+		        }
+		        else if(res.result) {
+			     vm.threads[i].numReplies = res.result.numReplies;
+		        }
+		    });
+		}
+	    }
         }
     }
 </script>

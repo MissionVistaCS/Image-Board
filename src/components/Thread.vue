@@ -29,7 +29,7 @@
                                 class="name">{{ thread.name }}</span> </span> <span class="dateTime"
                                                                               >{{ new Date(thread.timeStamp) }}</span>
                             <span class="postNum"> <a :href="'#' + thread._id" title="Link to this post">No.</a> <a
-                                    href="#" v-on:click="appendUserIdToReplyContent(thread._id)"
+                                    href="#" v-on:click="appendUserIdToReplyContent(thread._id + '\n')"
                                     title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
                         <blockquote class="postMessage" v-html="thread.content">
                         </blockquote>
@@ -42,15 +42,19 @@
                     <div class="post reply" v-bind:id="reply._id">
                         <div v-if="reply.attachment_path" class="file">
                             <div class="fileText"> File: <a :href="'/' + reply.attachment_path">{{ reply.attachment_name }}</a></div>
-                            <a class="fileThumb" :href="'/' + reply.attachment_path" target="_blank"> <img :src="'/' + reply.attachment_path"> </a>
+                            <a class="fileThumb" :href="'/' + reply.attachment_path" target="_blank" v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(reply.attachment_name.split('.').pop())">
+			        <img :src="'/' + reply.attachment_path">
+			    </a>
+			    <video class="fileThumb" v-if="new Array('webm').includes(reply.attachment_name.split('.').pop())" controls="">
+                                <source :src="'/' + reply.attachment_path"></source>
+			    </video>
                         </div>
                         <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
                                 class="dateTime">{{ new Date(reply.time) }}</span> <span
-                                class="postNum"> <a :href="'#' + reply_id" title="Link to this post">No.</a> <a
-                                href="#" v-on:click="appendUserIdToReplyContent(reply._id)" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
+                                class="postNum"> <a :href="'#' + reply._id" title="Link to this post">No.</a> <a
+                                href="#" v-on:click="appendUserIdToReplyContent(reply._id + '\n')" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
                         </div>
-                        <blockquote
-                                class="postMessage"> {{ reply.content }}
+                        <blockquote class="postMessage" v-html="reply.content">
                         </blockquote>
                     </div>
                 </div>
