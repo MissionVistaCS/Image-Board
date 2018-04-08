@@ -24,9 +24,12 @@
         <hr>
         <div id="threads">
             <div v-for="thread in threads" class="thread" v-bind:id="thread._id">
-                <a v-if="thread.attachment_path" :href="'/' + $route.params.board + '/thread/' + thread._id"> <img class="thumbnail"
-                                                                                     :src="'/' + thread.attachment_path"
-                                                                                     width="150"> </a>
+                <a v-if="thread.attachment_path" :href="'/' + $route.params.board + '/thread/' + thread._id">
+		   <img class="thumbnail" :src="'/' + thread.attachment_path" width="150" v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(thread.attachment_name.split('.').pop())">
+		   <video class="thumbnail" width="150" v-if="new Array('webm').includes(thread.attachment_name.split('.').pop())">
+		      <source :src="'/' + thread.attachment_path"></source>
+		   </video>
+		</a>
                 <div class="meta">
                     R: <b>?</b>
                 </div>
@@ -121,6 +124,11 @@
         position: relative;
         width: 180px;
         max-height: 320px;
+    }
+
+    .thread a, a:visited {
+        color: #34345c;
+	text-decoration: none;
     }
 
     #threads {

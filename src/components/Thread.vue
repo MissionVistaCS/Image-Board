@@ -18,9 +18,13 @@
                     <div v-bind:id="thread._id" class="post op">
                         <div v-if="thread.attachment_path" class="file">
                             <div class="fileText"> File: <a :href="'/' + thread.attachment_path">{{ thread.attachment_name }}</a></div>
-                            <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank"> <img
-                                    :src="'/' + thread.attachment_path">
-                            </a></div>
+                            <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank" v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(thread.attachment_name.split('.').pop())">
+			       	<img :src="'/' + thread.attachment_path">
+                            </a>
+			    <video class="fileThumb" v-if="new Array('webm').includes(thread.attachment_name.split('.').pop())" controls="">
+			    	<source :src="'/' + thread.attachment_path"></source>
+			    </video>
+			    </div>
                         <div class="postInfo"><span class="subject">{{ thread.title }}</span> <span class="nameBlock"> <span
                                 class="name">{{ thread.name }}</span> </span> <span class="dateTime"
                                                                               >{{ new Date(thread.timeStamp) }}</span>
@@ -159,7 +163,7 @@
         margin-left: 2px;
     }
 
-    .fileThumb img {
+    .fileThumb img, video {
         max-width: 250px;
         max-height: 250px;
         height: auto;
