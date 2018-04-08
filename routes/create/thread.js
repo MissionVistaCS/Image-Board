@@ -35,8 +35,9 @@ module.exports = {
                     title: title
                 });
 
+		let target_path = "";
                 if (attachment) {
-                    let target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
+                    target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
                     thread.attachment_path = target_path;
                     thread.attachment_name = attachment.originalname;
                 }
