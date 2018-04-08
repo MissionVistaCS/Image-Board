@@ -11,7 +11,8 @@ axios.defaults.withCredentials = true;
         threadsUrl: 'read/threads',
         boardUrl: 'read/board',
         threadUrl: 'read/thread',
-        repliesUrl: 'read/replies'
+        repliesUrl: 'read/replies',
+        bansUrl: 'read/bans'
     };
     function url(api) {
         return root + urls[api];
@@ -65,5 +66,9 @@ axios.defaults.withCredentials = true;
 
     _api.logout = function(fn) {
         post(url('logoutUrl'), {}, fn);
+    };
+
+    _api.bans = function (fn) {
+        get(url('bansUrl'), {}, fn);
     };
 })();
