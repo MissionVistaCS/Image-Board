@@ -12,7 +12,8 @@ axios.defaults.withCredentials = true;
         boardUrl: 'read/board',
         threadUrl: 'read/thread',
         repliesUrl: 'read/replies',
-        bansUrl: 'read/bans'
+        bansUrl: 'read/bans',
+        isAuthUrl: 'read/isAuth'
     };
     function url(api) {
         return root + urls[api];
@@ -70,5 +71,9 @@ axios.defaults.withCredentials = true;
 
     _api.bans = function (fn) {
         get(url('bansUrl'), {}, fn);
+    };
+
+    _api.isAuth = function (fn) {
+        get(url('isAuthUrl'), {}, fn);
     };
 })();

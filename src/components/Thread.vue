@@ -26,7 +26,7 @@
                                                                             data-utc="1523057718{INSERT}">{{ new Date(thread.timeStamp) }}</span>
                             <span class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
                                     href="{JS FOR APPENDING ID TO REPLY}"
-                                    title="Reply to this post">{{ thread._id }}</a> </span></div>
+                                    title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
                         <blockquote class="postMessage">
                             {{ thread.content }}
                         </blockquote>
@@ -44,7 +44,7 @@
                         <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
                                 class="dateTime" data-utc="1523057718{INSERT}">{{ new Date(reply.time) }}</span> <span
                                 class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
-                                href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span>
+                                href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button></span>
                         </div>
                         <blockquote
                                 class="postMessage"> {{ reply.content }}
@@ -209,6 +209,7 @@
                 thread: {},
                 board: {},
                 replies: [],
+                isMod: false,
                 boardList: "t / r / a / p"
             }
         },
@@ -218,6 +219,7 @@
             vm.updateThread(vm.$route.params.thread);
             vm.getBoardInfo(vm.$route.params.board);
             vm.updateReplies(vm.$route.params.thread);
+            vm.updateMod();
             vm.compileBoardList();
         },
         beforeRouteUpdate (to, from, next) {
@@ -225,6 +227,7 @@
             vm.updateThread(to.params.thread);
             vm.getBoardInfo(to.params.board);
             vm.updateReplies(to.params.thread);
+            vm.updateMod();
             vm.compileBoardList();
             next();
         },
@@ -263,6 +266,23 @@
                     }
                     else if (res.result) {
                         vm.replies = res.result;
+                    }
+                });
+            },
+            ban(threadOrReply) {
+                let vm = this;
+                let ip = threadOrReply.ip;
+                vm.$router.push('/ban/' + ip);
+            },
+            updateMod() {
+                let vm = this;
+                _api.isAuth(function (err, res) {
+                    if (err) {
+                        console.log(err);
+                        vm.isMod = false;
+                    }
+                    else if (res.result) {
+                        vm.isMod = res.result;
                     }
                 });
             },
