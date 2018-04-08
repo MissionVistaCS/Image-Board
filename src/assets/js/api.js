@@ -14,7 +14,8 @@ axios.defaults.withCredentials = true;
         repliesUrl: 'read/replies',
         bansUrl: 'read/bans',
         isAuthUrl: 'read/isAuth',
-        banUrl: 'create/ban'
+        banUrl: 'create/ban',
+        deleteReplyUrl: 'delete/reply'
     };
     function url(api) {
         return root + urls[api];
@@ -40,6 +41,16 @@ axios.defaults.withCredentials = true;
         .catch(function (error) {
             fn(error);
         });
+    }
+
+    function del(url, params, fn) {
+        axios.delete(url, { data: params })
+            .then(function (response) {
+                fn(null, response.data);
+            })
+            .catch(function (error) {
+                fn(error);
+            });
     }
 
     _api.boards = function (fn) {
@@ -80,5 +91,9 @@ axios.defaults.withCredentials = true;
 
     _api.ban = function (ip, message, fn) {
         post(url('banUrl'), { ip: ip, message: message }, fn);
+    };
+
+    _api.deleteReply = function (id, fn) {
+        post(url('deleteReplyUrl'), { _id: id }, fn);
     };
 })();
