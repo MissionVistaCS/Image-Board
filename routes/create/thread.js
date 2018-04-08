@@ -26,13 +26,14 @@ module.exports = {
 				if (result) {
 					return next(new Error('Thread with that title already exists.'));
 				}
-			    let target_path = "";
-			    let original_name = "";
-			    if(attachment) {
-				target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
-				original_name = attachment.originalname;
-			    }
-			    let thread = new Thread({ name: name, boardId: board, attachment_path: target_path, attachment_name: original_name, pinned: pinned, ip: ip, content: content, title: title });
+				let thread = new Thread({ name: name, boardId: board, pinned: pinned, ip: ip, content: content, title: title });
+
+				if (attachment) {
+					let target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
+					thread.attachment_path = target_path;
+					thread.attachment_name = attachment.originalname;
+				}
+
 				thread.save(function(err) {
 				    console.log(req.files);
 				        if(err) {
