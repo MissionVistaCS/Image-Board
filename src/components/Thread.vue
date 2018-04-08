@@ -16,7 +16,7 @@
             <div class="thread">
                 <div class="postContainer opContainer">
                     <div id="{UID}" class="post op">
-                        <div class="file">
+                        <div v-if="thread.attachment_path" class="file">
                             <div class="fileText"> File: <a :href="'/' + thread.attachment_path">{{ thread.attachment_name }}</a></div>
                             <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank"> <img
                                     :src="'/' + thread.attachment_path">

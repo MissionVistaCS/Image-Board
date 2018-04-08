@@ -24,14 +24,14 @@
         <hr>
         <div id="threads">
             <div v-for="thread in threads" class="thread">
-                <a :href="'/' + $route.params.board + '/thread/' + thread._id"> <img class="thumbnail"
+                <a v-if="thread.attachment_path" :href="'/' + $route.params.board + '/thread/' + thread._id"> <img class="thumbnail"
                                                                                      :src="'/' + thread.attachment_path"
                                                                                      width="150"> </a>
                 <div class="meta">
                     R: <b>?</b>
                 </div>
                 <div class="teaser">
-                    <b>{{ thread.title }}</b> <div v-html="thread.content">{{ thread.content }}</div>
+                    <a :href="'/' + $route.params.board + '/thread/' + thread._id"><b>{{ thread.title }}</b></a> <div v-html="thread.content">{{ thread.content }}</div>
                 </div>
             </div>
         </div>
