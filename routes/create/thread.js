@@ -1,6 +1,6 @@
 const Thread = require(_base + 'models/thread');
 const fs = require('fs');
-const path = _base + 'uploads/'
+const path = 'uploads/'
 const multer = require('multer');
 const upload = multer({ dest: './uploads/'});
 
@@ -18,35 +18,41 @@ module.exports = {
 			    content = req.body.content,
 			    title = req.body.title;
 
-			Thread.findOne({ name: name }, function (err, result) {
+			Thread.findOne({ title: title }, function (err, result) {
 				if (err) {
 					return next(err);
 				}
 
 				if (result) {
-					return next(new Error('Thread with that name already exists.'));
+					return next(new Error('Thread with that title already exists.'));
 				}
-
-			    let target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();;
-			    let thread = new Thread({ name: name, boardId: board, attachment_path: target_path, attachment_name: attachment.originalname, pinned: pinned, ip: ip, content: content, title: title });
+			    let target_path = "";
+			    let original_name = "";
+			    if(attachment) {
+				target_path = path + attachment.filename + "." + attachment.originalname.split('.').pop();
+				original_name = attachment.originalname;
+			    }
+			    let thread = new Thread({ name: name, boardId: board, attachment_path: target_path, attachment_name: original_name, pinned: pinned, ip: ip, content: content, title: title });
 				thread.save(function(err) {
 				    console.log(req.files);
 				        if(err) {
 						return next(err);
 					}
 
-				        //Save file to fs	
-				        fs.rename(attachment.path, target_path, function(err) {
-					    if(err) {
-					        return next(err);
-					    }
-					
-					    fs.unlink(attachment.path, function() {
+				        if(attachment) {
+				            //Save file to fs	
+				            fs.rename(attachment.path, target_path, function(err) {
 					        if(err) {
-						    return next(err);
+					            return next(err);
 					        }
+					
+				     	        fs.unlink(attachment.path, function() {
+					            if(err) {
+						        return next(err);
+					            }
+					        });
 					    });
-					});
+				        }
 				    
 					res.json({ result: { 
 						name: name, 

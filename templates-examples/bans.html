@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        font-family: 'Helvetica Neue', arial, sans-serif;
+        margin: 5px 0 5px 0;
+        padding: 0 5px;
+        font-size: 13px;
+        background: #eef2ff url(http://s.4cdn.org/image/fade-blue.png) top center repeat-x;
+      }
+      #description {
+        margin-top: 20px;
+      }
+      header {
+        text-align: center;
+        color: #AF0A0F;
+      }
+      #ban-entries {
+        table-layout: fixed;
+        background-color: #fff;
+        cursor: default;
+        margin: auto;
+        margin-top: 30px;
+        background-color: #eef2ff;
+      }
+      #ban-entries th {
+        background-color: #C0C7DE;
+      }
+      table, td, th, tr {
+        border-collapse: collapse;
+        border: 1px solid black;
+        text-align: center;
+      }
+      #title {
+        margin-top: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: -2px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="title">Image Board Bans</h1>
+      <div id="description">
+        The purpose of this page is to give users insight into what content is being removed, and why.
+        <br>
+        Below are the recent bans.
+	<br>
+	<br>
+	Don't be stupid.
+      </div>
+    </header>
+    <table id="ban-entries">
+      <thead>
+	<tr>
+	  <th class="col-ip">IP</th>
+	  <th class="col-message">Reason</th>
+	  <th class="Time">Time</th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr>
+	  <td>127.0.0.1</td>
+	  <td>Test Ban</td>
+	  <td>Sat, Apr 07, 2018 at 20:02:51</td>
+	</tr>
+      </tbody>
+    </table>
+  </body>
+</html>
