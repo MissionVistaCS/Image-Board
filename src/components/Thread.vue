@@ -43,7 +43,7 @@
                         <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
                                 class="dateTime" data-utc="1523057718{INSERT}">{{ new Date(reply.time) }}</span> <span
                                 class="postNum"> <a href="#{ID}" title="Link to this post">No.</a> <a
-                                href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="delete(reply)">Delete</button></span>
+                                href="{JS FOR APPENDING ID TO REPLY}" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
                         </div>
                         <blockquote
                                 class="postMessage"> {{ reply.content }}
@@ -244,16 +244,14 @@
                     }
                 });
             },
-            delete(reply) {
+            deleteReply(reply) {
                 let vm = this;
-                console.log(reply._id);
                 _api.deleteReply(reply._id, function (err, res) {
-                    console.log('Hello!');
                     if (err) {
                         console.log(err);
                     }
                     else if (res.result) {
-                        vm.$router.push('');
+                        vm.$router.go(vm.$router.currentRoute);
                     }
                 });
             },
