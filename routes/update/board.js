@@ -1,4 +1,5 @@
-const Board = require(_base + 'models/board.js');
+const Board = require(_base + 'models/board.js'),
+      ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
 
 module.export = {
 	'/update/board': {
