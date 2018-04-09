@@ -112,16 +112,15 @@ axios.defaults.withCredentials = true;
     };
 
     _api.deleteReply = function (id, fn) {
-        //post(url('deleteReplyUrl'), {_id: id}, fn);
-	  del(url('deleteReplyUrl'), {_id: id}, fn); //???
+        post(url('deleteReplyUrl'), {_id: id}, fn);
     };
 
     _api.numReplies = function (id, fn) {
         get(url('numRepliesUrl'), {_id: id}, fn);
     }
 
-    _api.deleteThread = function() {
-	del(url('deleteThreadUrl'), {_id: id}, fn); 
+    _api.deleteThread = function(id, fn) {
+	post(url('deleteThreadUrl'), {_id: id}, fn); 
     }
 
 })();

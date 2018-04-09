@@ -317,8 +317,8 @@
 		    if (err) {
 			console.log(err);
 		    }
-		    else if (res.resul) {
-			vm.$router.go(vm.$router.currentRoute);
+		    else if (res.result) {
+			vm.$router.push('/' + board.letter + '/catalog');
 		    }
 		}
 	    },
