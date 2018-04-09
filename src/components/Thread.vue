@@ -311,6 +311,17 @@
                     }
                 });
             },
+	    deleteThread(id) {
+		let vm = this;
+		_api.deleteThread(id, function(err, res) {
+		    if (err) {
+			console.log(err);
+		    }
+		    else if (res.resul) {
+			vm.$router.go(vm.$router.currentRoute);
+		    }
+		}
+	    },
             updateThread(id) {
                 let vm = this;
                 _api.thread(id, function (err, res) {

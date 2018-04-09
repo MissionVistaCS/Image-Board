@@ -17,7 +17,8 @@ axios.defaults.withCredentials = true;
         banUrl: 'create/ban',
         deleteReplyUrl: 'delete/reply',
         numRepliesUrl: 'read/numReplies',
-        updateBoardUrl: 'update/board'
+        updateBoardUrl: 'update/board',
+	deleteThreadUrl: 'delete/thread' 
     };
 
     function url(api) {
@@ -111,10 +112,16 @@ axios.defaults.withCredentials = true;
     };
 
     _api.deleteReply = function (id, fn) {
-        post(url('deleteReplyUrl'), {_id: id}, fn);
+        //post(url('deleteReplyUrl'), {_id: id}, fn);
+	  del(url('deleteReplyUrl'), {_id: id}, fn); //???
     };
 
     _api.numReplies = function (id, fn) {
         get(url('numRepliesUrl'), {_id: id}, fn);
     }
+
+    _api.deleteThread = function() {
+	del(url('deleteThreadUrl'), {_id: id}, fn); 
+    }
+
 })();
