@@ -1,9 +1,11 @@
-const Board = require(_base + 'models/board');
+const Board = require(_base + 'models/board'),
+      ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
 
 //will need mod authentication
 module.exports = {
 	'/create/board': {
-		methods: ['post'],
+	    methods: ['post'],
+	    middleware: [ensureAuthenticity],
 		fn: function(req, res, next) {
 			let category = req.body.category,
 				name = req.body.name,
@@ -26,9 +28,7 @@ module.exports = {
 					if(err) {
 						return next(err);
 					}
-				    res.json({ result: { letter: letter,
-							 category: category,
-							 name: name }});
+				    res.redirect('/' + letter + '/catalog');
 				});
 
 			});
