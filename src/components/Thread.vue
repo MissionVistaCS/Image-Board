@@ -320,7 +320,7 @@
 		    else if (res.result) {
 			vm.$router.push('/' + board.letter + '/catalog');
 		    }
-		}
+		});
 	    },
             updateThread(id) {
                 let vm = this;
