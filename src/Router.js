@@ -8,6 +8,7 @@ import Login from './components/Login.vue'
 import NewThread from './components/NewThread.vue'
 import BanList from './components/BanList.vue'
 import Ban from './components/Ban.vue'
+import EditBoard from './components/EditBoard.vue'
 
 Vue.use(Router);
 
@@ -53,6 +54,11 @@ export default new Router({
             path: '/ban/:ip',
             name: 'Ban',
             component: Ban
+        },
+        {
+            path: '/:board/:boardName/edit',
+            name: 'EditBoard',
+            component: EditBoard
         }
     ]
 })

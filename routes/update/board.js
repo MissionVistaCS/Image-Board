@@ -1,10 +1,10 @@
 const Board = require(_base + 'models/board.js'),
       ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
 
-module.export = {
+module.exports = {
 	'/update/board': {
 		methods: ['put'],
-		middleware: [],
+		middleware: [ensureAuthenticity],
 		fn: function(req, res, next) {
 
 			let updateFields = {};
@@ -24,12 +24,11 @@ module.export = {
 
 			Board.findOneAndUpdate({ letter: letter }, updateFields, function(err, result) {
 				if(err)	{
-					next(err);
+					return next(err);
 				}
 
 				res.json({ result: result });
 			});
 		}
 	}
-}
-
+};

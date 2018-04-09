@@ -15,7 +15,7 @@
       </span>
         </div>
         <div class="boardBanner">
-            <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div>
+            <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div> <button v-if="isMod" v-on:click="toEditBoard($route.params.board, board.name)">Edit</button>
         </div>
         <hr class="abovePostLink">
         <div id="postLink">
@@ -156,6 +156,7 @@
             return {
                 threads: [],
                 board: {},
+                isMod: false,
                 boardList: "t / r / a / p"
             }
         },
@@ -165,12 +166,14 @@
             vm.updateThreads(vm.$route.params.board);
             vm.getBoardInfo(vm.$route.params.board);
             vm.compileBoardList();
+            vm.updateMod();
         },
         beforeRouteUpdate (to, from, next) {
             let vm = this;
             vm.updateThreads(to.params.board);
             vm.getBoardInfo(to.params.board);
             vm.compileBoardList();
+            vm.updateMod();
             next();
         },
         methods: {
@@ -210,6 +213,22 @@
                         }
                     }
                 });
+            },
+            updateMod() {
+                let vm = this;
+                _api.isAuth(function (err, res) {
+                    if (err) {
+                        console.log(err);
+                        vm.isMod = false;
+                    }
+                    else if (res.result) {
+                        vm.isMod = res.result;
+                    }
+                });
+            },
+            toEditBoard(boardLetter, boardName) {
+                let vm = this;
+                vm.$router.push('/' + boardLetter + '/' + boardName + '/edit');
             },
             compileBoardList() {
                 let vm = this;

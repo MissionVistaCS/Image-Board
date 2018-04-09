@@ -16,7 +16,8 @@ axios.defaults.withCredentials = true;
         isAuthUrl: 'read/isAuth',
         banUrl: 'create/ban',
         deleteReplyUrl: 'delete/reply',
-        numRepliesUrl: 'read/numReplies'
+        numRepliesUrl: 'read/numReplies',
+        updateBoardUrl: 'update/board'
     };
 
     function url(api) {
@@ -37,6 +38,16 @@ axios.defaults.withCredentials = true;
 
     function post(url, params, fn) {
         axios.post(url, params)
+            .then(function (response) {
+                fn(null, response.data);
+            })
+            .catch(function (error) {
+                fn(error);
+            });
+    }
+
+    function put(url, params, fn) {
+        axios.put(url, params)
             .then(function (response) {
                 fn(null, response.data);
             })
@@ -93,6 +104,10 @@ axios.defaults.withCredentials = true;
 
     _api.ban = function (ip, message, fn) {
         post(url('banUrl'), {ip: ip, message: message}, fn);
+    };
+
+    _api.editBoard = function (id, name, fn) {
+        put(url('updateBoardUrl'), { letter: id, name: name }, fn);
     };
 
     _api.deleteReply = function (id, fn) {

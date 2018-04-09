@@ -1,7 +1,7 @@
 const Mod = require(_base + 'models/mod.js'),
       ensureAuthenticity = require(_base + 'middleware/ensureAuthenticity');
 
-module.export = {
+module.exports = {
 	'/update/mod': {
 		methods: ['put'],
 		middleware: [],
