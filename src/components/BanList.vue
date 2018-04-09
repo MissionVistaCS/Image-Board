@@ -1,7 +1,7 @@
 <template>
     <div class="banlist">
         <header>
-            <h1 id="title">Image Board Bans</h1>
+            <h1 id="title">Chan ∞ Infinitum Bans</h1>
             <div id="description">
                 The purpose of this page is to give users insight into what content is being removed, and why.
                 <br>
@@ -71,7 +71,7 @@
 
 <script>
     export default {
-        name: 'BanList',
+        name: '∞chan - Bans',
         data () {
             return {
                 bans: []

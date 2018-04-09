@@ -4,7 +4,7 @@
         <div id="topNav" class="boardNav">
             <span class="boardList">
                 [ <span v-html="boardList"></span> ]
-            </span> <span class="actionList"> [ <a href="#bottom">Bottom</a> / <a href="/"
+            </span> <span class="actionList"> [ <a href="#bottom">Bottom</a> / <a href="/bans" target="_top">Bans</a> / <a href="/"
                                                                                   target="_top">Home</a> ] </span></div>
         <div class="boardBanner">
             <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div>
@@ -70,7 +70,7 @@
                 <div id="bottom">
                     <hr>
                     <div id="bottomNav" class="boardNav"><span class="boardList"> [ <span v-html="boardList"></span> ] </span>
-                        <span class="actionList"> [ <a href="catalog.php#top">Top</a> / <a href="/"
+                        <span class="actionList"> [ <a href="catalog.php#top">Top</a> / <a href="/bans" target="_top">Bans</a> / <a href="/"
                                                                                            target="_top">Home</a> ] </span>
                     </div>
                     <br>
@@ -108,11 +108,6 @@
 </template>
 
 <style scoped>
-    a, a:visited {
-        color: #34345c;
-        text-decoration: none;
-    }
-
     .replyBox {
         position: fixed;
         border-style: solid;
@@ -179,11 +174,6 @@
     div.post div.postInfo {
         display: block;
         width: 100%;
-    }
-
-    div.post div.postInfo span.postNum a {
-        color: #000;
-        text-decoration: none;
     }
 
     div.post div.postInfo span.nameBlock {

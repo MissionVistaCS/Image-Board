@@ -3,14 +3,14 @@
         <div id="doc">
             <div id="hd">
                 <div id="logo">
-                    <a href="/" title="Home"><img src="http://img.2ch.sc/img/4_0217.png" width="448"></a>
+                    <a href="/" title="Home"><img :src="'/src/assets/Image-Board_Banner.png'" width="448"></a>
                 </div>
             </div>
             <div id="bd">
                 <div id="announce" class="box-outer">
                     <div class="box-inner">
                         <div class="boxbar">
-                            <h2>What is Image Board?</h2>
+                            <h2>What is Chan ∞ Infinitum?</h2>
                         </div>
                         <div class="boxcontent">
                             <div id="about-content">
@@ -44,7 +44,7 @@
 
 <script>
     export default {
-        name: 'Index',
+        name: '∞chan',
         data () {
             return {
                 boards: []

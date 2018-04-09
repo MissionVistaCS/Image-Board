@@ -1,3 +1,12 @@
+a, a:visited {
+    color: #34345c;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #d00;    
+}
+
 body {
     background: #eef2ff url(http://s.4cdn.org/image/fade-blue.png) top center repeat-x;
 }

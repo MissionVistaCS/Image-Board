@@ -10,6 +10,8 @@
 	[
 	<a href="#bottom">Bottom</a>
 	/
+	<a href="/bans" target="_top">Bans</a>
+	/
 	<a href="/" target="_top">Home</a>
 	]
       </span>
@@ -51,6 +53,8 @@
       </span> <span class="actionList">
 	[
 	<a href="#top">Top</a>
+	/
+	<a href="/bans" target="_top">Bans</a>
 	/
 	<a href="/" target="_top">Home</a>
 	]
@@ -127,6 +131,10 @@
         display: block;
     }
 
+    .teaser a:hover {
+        color: #34345c;
+    }
+
     .thread {
         vertical-align: top;
         display: inline-block;
@@ -141,11 +149,6 @@
         position: relative;
         width: 180px;
         max-height: 320px;
-    }
-
-    .thread a, a:visited {
-        color: #34345c;
-        text-decoration: none;
     }
 
     #threads {
