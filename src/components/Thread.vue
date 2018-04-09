@@ -7,7 +7,7 @@
             </span> <span class="actionList"> [ <a
                 href="#bottom">Bottom</a> / <a href="/" target="_top">Home</a> ] </span></div>
         <div class="boardBanner">
-            <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div>
+            <div class="boardTitle">/{{ $route.params.board }}/ - {{ board.name }}</div>
         </div>
         <hr class="abovePostLink">
         <div id="postLink"> [<a href="#" v-on:click="toggleReplyBox" id="postLinkText">Post a Reply</a>]</div>
@@ -30,7 +30,9 @@
                                                                               >{{ new Date(thread.timeStamp) }}</span>
                             <span class="postNum"> <a :href="'#' + thread._id" title="Link to this post">No.</a> <a
                                     href="#" v-on:click="appendUserIdToReplyContent(thread._id + '\n')"
-                                    title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
+                                    title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span>
+			    <span v-if="isMod"><button v-on:click="deleteThread(thread._id)">Delete</button></span>	    
+			</div>
                         <blockquote class="postMessage" v-html="thread.content">
                         </blockquote>
                     </div>
@@ -314,11 +316,19 @@
 	    deleteThread(id) {
 		let vm = this;
 		_api.deleteThread(id, function(err, res) {
+		    console.log("board letter");
+		    console.log(board.letter);
+		    console.log("error");
+		    console.log(err);
+		    console.log("res result");
+		    console.log(res.result);
+		
 		    if (err) {
 			console.log(err);
 		    }
 		    else if (res.result) {
 			vm.$router.push('/' + board.letter + '/catalog');
+			//vm.$router.go(vm.$router.currentRoute);
 		    }
 		});
 	    },
