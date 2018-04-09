@@ -68,13 +68,17 @@
             </div>
 
             <div class="replyBox" v-if="replyBoxShown">
-                <p>Post Reply</p>
+                <tr>Post Reply</tr>
                 <form name="post" action="/create/reply" method="post" enctype="multipart/form-data">
                     <tbody>
                     <tr style="display: none;" data-type="Thread">
                         <td>Thread</td>
                         <td><input id="thread" name="threadId" type="text" v-model="thread._id"></td>
                     </tr>
+		    <tr data-type="Name">
+		        <td>Name</td>
+			<td><input id="name" name="name" type="text" value="Anonymous"></td>
+		    </tr>
                     <tr data-type="Content">
                         <td>Content</td>
                         <td><textarea v-model="replyContent" name="content" cols="48" rows="4" wrap="soft" tabindex="4"></textarea></td>
@@ -84,7 +88,7 @@
                         <td><input id="postFile" name="attachment" type="file" tabindex="7">
                         </td>
                     </tr>
-                    </tbody>
+		    </tbody>
                     <button type="submit">Post</button>
                 </form>
             </div>
@@ -231,6 +235,10 @@
         font-size: 22px;
         font-weight: 700;
         text-align: center;
+    }
+
+    .replyBox {
+    	background-color: #EEF2FF;
     }
 
     .thread {

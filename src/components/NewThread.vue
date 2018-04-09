@@ -5,6 +5,10 @@
             <td>Board</td>
             <td><input id="board" name="board" type="text" v-model="board.letter"></td>
         </tr>
+	<tr data-type="Name">
+	    <td>Name</td>
+	    <td><input id="name" name="name" type="text"></td>
+	</tr>
         <tr data-type="Title">
             <td>Title</td>
             <td><input id="title" name="title" type="text"></td>

@@ -29,7 +29,7 @@ module.exports = {
             let contentLines = content.split(new RegExp('\r?\n', 'g'));
             let contentFinal = "";
             for (let i = 0; i < contentLines.length; i++) {
-                lineContent = contentLines[i].replace(new RegExp('\\>'), "<span style='color: #789922;'>>");
+                lineContent = contentLines[i].replace(new RegExp('([^>]|^)>(?=[^>])'), "<span style='color: #789922;'>>");
                 if (lineContent.includes("<span style='color: #789922;'>>")) {
                     contentLines[i] = lineContent + "</span>";
                 }
@@ -68,7 +68,6 @@ module.exports = {
                 }
 
                 thread.save(function (err) {
-                    console.log(req.files);
                     if (err) {
                         return next(err);
                     }

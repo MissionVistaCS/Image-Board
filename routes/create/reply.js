@@ -16,7 +16,8 @@ module.exports = {
             let threadId = req.body.threadId,
                 attachment = req.file,
                 ip = req.connection.remoteAddress,
-                content = req.body.content;
+                content = req.body.content,
+		name = req.body.name;
 
             Thread.findById(threadId, function (err, result) {
                 if (err) {
@@ -34,7 +35,7 @@ module.exports = {
                 let contentLines = content.split(new RegExp('\r?\n', 'g'));
                 let contentFinal = "";
                 for (let i = 0; i < contentLines.length; i++) {
-                    lineContent = contentLines[i].replace(new RegExp('\\>'), "<span style='color: #789922;'>>");
+                    lineContent = contentLines[i].replace(new RegExp('([^>]|^)>(?=[^>])'), "<span style='color: #789922;'>>");
                     if (lineContent.includes("<span style='color: #789922;'>>")) {
                         contentLines[i] = lineContent + "</span>";
                     }
@@ -46,7 +47,7 @@ module.exports = {
                 }
                 content = contentFinal;
 
-                let reply = new Reply({threadId: threadId, ip: ip, content: content});
+                let reply = new Reply({threadId: threadId, ip: ip, content: content, name: name});
 
                 let target_path;
                 if (attachment) {
@@ -56,7 +57,6 @@ module.exports = {
                 }
 
                 reply.save(function (err) {
-                    console.log(req.files);
                     if (err) {
                         return next(err);
                     }

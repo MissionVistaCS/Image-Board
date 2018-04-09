@@ -11,7 +11,6 @@ module.exports = {
 		    return next(err);
 		} else {
 		    numReplies = threadResults.length;
-		    console.log(numReplies);
 		    res.json( { result: { numReplies: numReplies } } );
 		}
 	    });
