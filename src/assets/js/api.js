@@ -1,4 +1,4 @@
-let _api = { };
+let _api = {};
 
 axios.defaults.withCredentials = true;
 
@@ -16,8 +16,9 @@ axios.defaults.withCredentials = true;
         isAuthUrl: 'read/isAuth',
         banUrl: 'create/ban',
         deleteReplyUrl: 'delete/reply',
-	numRepliesUrl: 'read/numReplies'
+        numRepliesUrl: 'read/numReplies'
     };
+
     function url(api) {
         return root + urls[api];
     }
@@ -26,26 +27,26 @@ axios.defaults.withCredentials = true;
         axios.get(url, {
             params: params
         })
-        .then(function (response) {
-            fn(null, response.data);
-        })
-        .catch(function (error) {
-            fn(error);
-        });
+            .then(function (response) {
+                fn(null, response.data);
+            })
+            .catch(function (error) {
+                fn(error);
+            });
     }
 
     function post(url, params, fn) {
         axios.post(url, params)
-        .then(function (response) {
-            fn(null, response.data);
-        })
-        .catch(function (error) {
-            fn(error);
-        });
+            .then(function (response) {
+                fn(null, response.data);
+            })
+            .catch(function (error) {
+                fn(error);
+            });
     }
 
     function del(url, params, fn) {
-        axios.delete(url, { data: params })
+        axios.delete(url, {data: params})
             .then(function (response) {
                 fn(null, response.data);
             })
@@ -55,30 +56,30 @@ axios.defaults.withCredentials = true;
     }
 
     _api.boards = function (fn) {
-        get(url('boardsUrl'), { }, fn);
+        get(url('boardsUrl'), {}, fn);
     };
 
     _api.threads = function (letter, fn) {
-        get(url('threadsUrl'), { letter: letter }, fn);
+        get(url('threadsUrl'), {letter: letter}, fn);
     };
 
     _api.board = function (letter, fn) {
-        get(url('boardUrl'), { letter: letter }, fn);
+        get(url('boardUrl'), {letter: letter}, fn);
     };
 
-    _api.thread = function(id, fn) {
-        get(url('threadUrl'), { _id: id }, fn);
+    _api.thread = function (id, fn) {
+        get(url('threadUrl'), {_id: id}, fn);
     };
 
-    _api.replies = function(threadId, fn) {
-        get(url('repliesUrl'), { threadId: threadId }, fn);
+    _api.replies = function (threadId, fn) {
+        get(url('repliesUrl'), {threadId: threadId}, fn);
     };
 
     _api.login = function (username, password, fn) {
-        post(url('loginUrl'), { username: username, password: password }, fn);
+        post(url('loginUrl'), {username: username, password: password}, fn);
     };
 
-    _api.logout = function(fn) {
+    _api.logout = function (fn) {
         post(url('logoutUrl'), {}, fn);
     };
 
@@ -91,14 +92,14 @@ axios.defaults.withCredentials = true;
     };
 
     _api.ban = function (ip, message, fn) {
-        post(url('banUrl'), { ip: ip, message: message }, fn);
+        post(url('banUrl'), {ip: ip, message: message}, fn);
     };
 
     _api.deleteReply = function (id, fn) {
-        post(url('deleteReplyUrl'), { _id: id }, fn);
+        post(url('deleteReplyUrl'), {_id: id}, fn);
     };
 
     _api.numReplies = function (id, fn) {
-	get(url('numRepliesUrl'), { _id: _id }, fn);
+        get(url('numRepliesUrl'), {_id: id}, fn);
     }
 })();

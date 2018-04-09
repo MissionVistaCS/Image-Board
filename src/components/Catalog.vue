@@ -24,17 +24,20 @@
         <hr>
         <div id="threads">
             <div v-for="thread in threads" class="thread" v-bind:id="thread._id">
-                <a v-if="thread.attachment_path" :href="'/' + $route.params.board + '/thread/' + thread._id">
-		   <img class="thumbnail" :src="'/' + thread.attachment_path" width="150" v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(thread.attachment_name.split('.').pop())">
-		   <video class="thumbnail" width="150" v-if="new Array('webm').includes(thread.attachment_name.split('.').pop())">
-		      <source :src="'/' + thread.attachment_path"></source>
-		   </video>
-		</a>
+                <a v-if="thread.attachment_path" :href="'/' + $route.params.board + '/thread/' + thread._id"> <img
+                        class="thumbnail" :src="'/' + thread.attachment_path" width="150"
+                        v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(thread.attachment_name.split('.').pop())">
+                    <video class="thumbnail" width="150"
+                           v-if="new Array('webm').includes(thread.attachment_name.split('.').pop())">
+                        <source :src="'/' + thread.attachment_path"></source>
+                    </video>
+                </a>
                 <div class="meta">
-                    R: <b>{{ thread.numReplies }}</b>
+                    R: <b> {{ thread.numReplies }}</b>
                 </div>
                 <div class="teaser">
-                    <a :href="'/' + $route.params.board + '/thread/' + thread._id"><b>{{ thread.title }}</b></a> <div v-html="thread.content">{{ thread.content }}</div>
+                    <a :href="'/' + $route.params.board + '/thread/' + thread._id"><b>{{ thread.title }}</b></a>
+                    <div v-html="thread.content">{{ thread.content }}</div>
                 </div>
             </div>
         </div>
@@ -71,8 +74,8 @@
     }
 
     .boardLink:hover {
-    	color: #e00;
-	text-decoration: underline;
+        color: #e00;
+        text-decoration: underline;
     }
 
     .boardNav {
@@ -93,9 +96,8 @@
     }
 
     .category-header {
-    	
-    
-    }   
+
+    }
 
     hr {
         clear: both;
@@ -139,7 +141,7 @@
 
     .thread a, a:visited {
         color: #34345c;
-	text-decoration: none;
+        text-decoration: none;
     }
 
     #threads {
@@ -163,14 +165,12 @@
             vm.updateThreads(vm.$route.params.board);
             vm.getBoardInfo(vm.$route.params.board);
             vm.compileBoardList();
-	    vm.getThreadsNumReplies();
         },
         beforeRouteUpdate (to, from, next) {
             let vm = this;
             vm.updateThreads(to.params.board);
             vm.getBoardInfo(to.params.board);
             vm.compileBoardList();
-	    vm.getThreadsNumReplies();
             next();
         },
         methods: {
@@ -196,6 +196,18 @@
                     }
                     else if (res.result) {
                         vm.threads = res.result;
+
+                        for (let i = 0; i < vm.threads.length; i++) {
+                            _api.numReplies(vm.threads[i]._id, function (err, res) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else if (res.result) {
+                                    vm.threads[i].numReplies = res.result.numReplies;
+                                    vm.threads.splice(i, 1, vm.threads[i]);
+                                }
+                            });
+                        }
                     }
                 });
             },
@@ -215,20 +227,7 @@
                         console.log(vm.boardList);
                     }
                 });
-            },
-	    getThreadsNumReplies() {
-	        let vm = this;
-		for(let i=0; i<vm.threads.length; i++) {
-		    _api.numReplies(vm.threads[i]._id, function (err, res) {
-		        if (err) {
-		            console.log(err);
-		        }
-		        else if(res.result) {
-			     vm.threads[i].numReplies = res.result.numReplies;
-		        }
-		    });
-		}
-	    }
+            }
         }
     }
 </script>
