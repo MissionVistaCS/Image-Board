@@ -18,7 +18,8 @@ axios.defaults.withCredentials = true;
         deleteReplyUrl: 'delete/reply',
         numRepliesUrl: 'read/numReplies',
         updateBoardUrl: 'update/board',
-	deleteThreadUrl: 'delete/thread' 
+        deleteThreadUrl: 'delete/thread',
+        createModUrl: 'create/mod'
     };
 
     function url(api) {
@@ -108,7 +109,7 @@ axios.defaults.withCredentials = true;
     };
 
     _api.editBoard = function (id, name, fn) {
-        put(url('updateBoardUrl'), { letter: id, name: name }, fn);
+        put(url('updateBoardUrl'), {letter: id, name: name}, fn);
     };
 
     _api.deleteReply = function (id, fn) {
@@ -117,10 +118,14 @@ axios.defaults.withCredentials = true;
 
     _api.numReplies = function (id, fn) {
         get(url('numRepliesUrl'), {_id: id}, fn);
-    }
+    };
 
-    _api.deleteThread = function(id, fn) {
-	post(url('deleteThreadUrl'), {_id: id}, fn); 
-    }
+    _api.deleteThread = function (id, fn) {
+        post(url('deleteThreadUrl'), {_id: id}, fn);
+    };
+
+    _api.createMod = function (username, password, fn) {
+        post(url('createModUrl'), { username: username, password: password }, fn);
+    };
 
 })();

@@ -9,6 +9,7 @@ import NewThread from './components/NewThread.vue'
 import BanList from './components/BanList.vue'
 import Ban from './components/Ban.vue'
 import EditBoard from './components/EditBoard.vue'
+import CreateMod from './components/CreateMod.vue'
 
 Vue.use(Router);
 
@@ -59,6 +60,11 @@ export default new Router({
             path: '/:board/:boardName/edit',
             name: 'EditBoard',
             component: EditBoard
+        },
+        {
+            path: '/create/mod',
+            name: 'CreateMod',
+            component: CreateMod
         }
     ]
 })
