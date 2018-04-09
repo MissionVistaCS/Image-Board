@@ -19,6 +19,7 @@ axios.defaults.withCredentials = true;
         numRepliesUrl: 'read/numReplies',
         updateBoardUrl: 'update/board',
         deleteThreadUrl: 'delete/thread',
+        createBoardUrl: 'create/board',
         createModUrl: 'create/mod'
     };
 
@@ -122,6 +123,10 @@ axios.defaults.withCredentials = true;
 
     _api.deleteThread = function (id, fn) {
         post(url('deleteThreadUrl'), {_id: id}, fn);
+    };
+
+    _api.createBoard = function (name, letter, fn) {
+        post(url('createBoardUrl'), { name: name, letter: letter }, fn);
     };
 
     _api.createMod = function (username, password, fn) {
