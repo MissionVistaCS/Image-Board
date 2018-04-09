@@ -6,6 +6,8 @@ const express = require('express'),
       PropertiesReader = require('properties-reader'),
       multer = require('multer'),
       path = require('path'),
+      fs = require('fs'),
+      https = require('https'),
       passport = require('passport');
 const app = express();
 
@@ -61,6 +63,12 @@ app.use(function (err, req, res, next) {
     res.json({ error: err.message });
 });
 
-app.listen(3001, ()=>{
-    console.log('API listening on port 3001');
-});
+let options = {
+    key: fs.readFileSync('privateKey.key'),
+    cert: fs.readFileSync('certificate.crt')
+};
+https.createServer(options, app).listen(3001);
+
+// app.listen(3001, ()=>{
+//     console.log('API listening on port 3001');
+// });
