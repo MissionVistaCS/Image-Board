@@ -92,6 +92,12 @@
         color: #800;
         text-decoration: none;
     }
+
+    #boards a.boardlink:hover {
+	color: #d00;
+	text-decoration: underline;
+    }
+
     #boards .column {
         width: 12em;
     }

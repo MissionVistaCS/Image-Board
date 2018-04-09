@@ -10,7 +10,7 @@
             <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div>
         </div>
         <hr class="abovePostLink">
-        <div id="postLink"> [<a href="#" v-on:click="toggleReplyBox">Post a Reply</a>]</div>
+        <div id="postLink"> [<a href="#" v-on:click="toggleReplyBox" id="postLinkText">Post a Reply</a>]</div>
         <hr>
         <div class="board">
             <div class="thread">
@@ -235,6 +235,10 @@
         font-size: 22px;
         font-weight: 700;
         text-align: center;
+    }
+
+    #postLinkText:hover {
+	color: #d00;
     }
 
     .replyBox {

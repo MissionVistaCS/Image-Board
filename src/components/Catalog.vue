@@ -19,7 +19,7 @@
         </div>
         <hr class="abovePostLink">
         <div id="postLink">
-            [<a href="post">Start a New Thread</a>]
+            [<a href="post" id="postLinkText">Start a New Thread</a>]
         </div>
         <hr>
         <div id="threads">
@@ -116,6 +116,10 @@
         font-size: 22px;
         font-weight: 700;
         text-align: center;
+    }
+
+    #postLinkText:hover {
+	color: #d00;
     }
 
     .teaser {
