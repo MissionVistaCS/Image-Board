@@ -4,8 +4,8 @@
         <div id="topNav" class="boardNav">
             <span class="boardList">
                 [ <span v-html="boardList"></span> ]
-            </span> <span class="actionList"> [ <a
-                href="#bottom">Bottom</a> / <a href="/" target="_top">Home</a> ] </span></div>
+            </span> <span class="actionList"> [ <a href="#bottom">Bottom</a> / <a href="/"
+                                                                                  target="_top">Home</a> ] </span></div>
         <div class="boardBanner">
             <div class="boardTitle">/{{ $route.params.board }}/ {{ board.name }}</div>
         </div>
@@ -17,22 +17,25 @@
                 <div class="postContainer opContainer">
                     <div v-bind:id="thread._id" class="post op">
                         <div v-if="thread.attachment_path" class="file">
-                            <div class="fileText"> File: <a :href="'/' + thread.attachment_path">{{ thread.attachment_name }}</a></div>
-                            <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank" v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(thread.attachment_name.split('.').pop())">
-			       	<img :src="'/' + thread.attachment_path">
-                            </a>
-			    <video class="fileThumb" v-if="new Array('webm').includes(thread.attachment_name.split('.').pop())" controls="">
-			    	<source :src="'/' + thread.attachment_path"></source>
-			    </video>
-			    </div>
-                        <div class="postInfo"><span class="subject">{{ thread.title }}</span> <span class="nameBlock"> <span
-                                class="name">{{ thread.name }}</span> </span> <span class="dateTime"
-                                                                              >{{ new Date(thread.timeStamp) }}</span>
-                            <span class="postNum"> <a :href="'#' + thread._id" title="Link to this post">No.</a> <a
-                                    href="#" v-on:click="appendUserIdToReplyContent(thread._id + '\n')"
-                                    title="Reply to this post">{{ thread._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
-                        <blockquote class="postMessage" v-html="thread.content">
-                        </blockquote>
+                            <div class="fileText"> File: <a
+                                    :href="'/' + thread.attachment_path">{{ thread.attachment_name }}</a></div>
+                            <a class="fileThumb" :href="'/' + thread.attachment_path" target="_blank"
+                               v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(thread.attachment_name.split('.').pop())">
+                                <img :src="'/' + thread.attachment_path"> </a>
+                            <video class="fileThumb"
+                                   v-if="new Array('webm').includes(thread.attachment_name.split('.').pop())"
+                                   controls="">
+                                <source :src="'/' + thread.attachment_path"></source>
+                            </video>
+                        </div>
+                        <div class="postInfo"><span class="subject">{{ thread.title }}</span> <span
+                                class="nameBlock"> <span class="name">{{ thread.name }}</span> </span> <span
+                                class="dateTime">{{ new Date(thread.timeStamp) }}</span> <span class="postNum"> <a
+                                :href="'#' + thread._id" title="Link to this post">No.</a> <a href="#"
+                                                                                              v-on:click="appendUserIdToReplyContent(thread._id + '\n')"
+                                                                                              title="Reply to this post">{{ thread._id }}</a> </span>
+                            <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
+                        <blockquote class="postMessage" v-html="thread.content"></blockquote>
                     </div>
                 </div>
 
@@ -41,58 +44,67 @@
                     <div class="sideArrows">>></div>
                     <div class="post reply" v-bind:id="reply._id">
                         <div v-if="reply.attachment_path" class="file">
-                            <div class="fileText"> File: <a :href="'/' + reply.attachment_path">{{ reply.attachment_name }}</a></div>
-                            <a class="fileThumb" :href="'/' + reply.attachment_path" target="_blank" v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(reply.attachment_name.split('.').pop())">
-			        <img :src="'/' + reply.attachment_path">
-			    </a>
-			    <video class="fileThumb" v-if="new Array('webm').includes(reply.attachment_name.split('.').pop())" controls="">
+                            <div class="fileText"> File: <a
+                                    :href="'/' + reply.attachment_path">{{ reply.attachment_name }}</a></div>
+                            <a class="fileThumb" :href="'/' + reply.attachment_path" target="_blank"
+                               v-if="new Array('gif', 'jpg', 'jpeg', 'png').includes(reply.attachment_name.split('.').pop())">
+                                <img :src="'/' + reply.attachment_path"> </a>
+                            <video class="fileThumb"
+                                   v-if="new Array('webm').includes(reply.attachment_name.split('.').pop())"
+                                   controls="">
                                 <source :src="'/' + reply.attachment_path"></source>
-			    </video>
+                            </video>
                         </div>
-                        <div class="postInfo"><span class="nameBlock"> <span class="name">{{ reply.name }}</span> </span> <span
-                                class="dateTime">{{ new Date(reply.time) }}</span> <span
-                                class="postNum"> <a :href="'#' + reply._id" title="Link to this post">No.</a> <a
-                                href="#" v-on:click="appendUserIdToReplyContent(reply._id + '\n')" title="Reply to this post">{{ reply._id }}</a> </span> <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button v-on:click="deleteReply(reply)">Delete</button></span>
+                        <div class="postInfo"><span class="nameBlock"> <span
+                                class="name">{{ reply.name }}</span> </span> <span
+                                class="dateTime">{{ new Date(reply.time) }}</span> <span class="postNum"> <a
+                                :href="'#' + reply._id" title="Link to this post">No.</a> <a href="#"
+                                                                                             v-on:click="appendUserIdToReplyContent(reply._id + '\n')"
+                                                                                             title="Reply to this post">{{ reply._id }}</a> </span>
+                            <span v-if="isMod"><button v-on:click="ban(reply)">Ban</button> <button
+                                    v-on:click="deleteReply(reply)">Delete</button></span>
                         </div>
-                        <blockquote class="postMessage" v-html="reply.content">
-                        </blockquote>
+                        <blockquote class="postMessage" v-html="reply.content"></blockquote>
                     </div>
                 </div>
                 <div id="bottom">
                     <hr>
-                    <div id="bottomNav" class="boardNav"><span class="boardList"> [ <span v-html="boardList"></span> ] </span> <span class="actionList"> [ <a
-                            href="catalog.php#top">Top</a> / <a href="/" target="_top">Home</a> ] </span></div>
+                    <div id="bottomNav" class="boardNav"><span class="boardList"> [ <span v-html="boardList"></span> ] </span>
+                        <span class="actionList"> [ <a href="catalog.php#top">Top</a> / <a href="/"
+                                                                                           target="_top">Home</a> ] </span>
+                    </div>
                     <br>
                 </div>
-                </div>
-            </div>
-
-            <div class="replyBox" v-if="replyBoxShown">
-                <tr>Post Reply</tr>
-                <form name="post" action="/create/reply" method="post" enctype="multipart/form-data">
-                    <tbody>
-                    <tr style="display: none;" data-type="Thread">
-                        <td>Thread</td>
-                        <td><input id="thread" name="threadId" type="text" v-model="thread._id"></td>
-                    </tr>
-		    <tr data-type="Name">
-		        <td>Name</td>
-			<td><input id="name" name="name" type="text" value="Anonymous"></td>
-		    </tr>
-                    <tr data-type="Content">
-                        <td>Content</td>
-                        <td><textarea v-model="replyContent" name="content" cols="48" rows="4" wrap="soft" tabindex="4"></textarea></td>
-                    </tr>
-                    <tr data-type="File">
-                        <td>File</td>
-                        <td><input id="postFile" name="attachment" type="file" tabindex="7">
-                        </td>
-                    </tr>
-		    </tbody>
-                    <button type="submit">Post</button>
-                </form>
             </div>
         </div>
+
+        <div class="replyBox" v-if="replyBoxShown">
+            <tr>Post Reply</tr>
+            <form name="post" action="/create/reply" method="post" enctype="multipart/form-data">
+                <tbody>
+                <tr style="display: none;" data-type="Thread">
+                    <td>Thread</td>
+                    <td><input id="thread" name="threadId" type="text" v-model="thread._id"></td>
+                </tr>
+                <tr data-type="Name">
+                    <td>Name</td>
+                    <td><input id="name" name="name" type="text" value="Anonymous"></td>
+                </tr>
+                <tr data-type="Content">
+                    <td>Content</td>
+                    <td><textarea v-model="replyContent" name="content" cols="48" rows="4" wrap="soft"
+                                  tabindex="4"></textarea></td>
+                </tr>
+                <tr data-type="File">
+                    <td>File</td>
+                    <td><input id="postFile" name="attachment" type="file" tabindex="7">
+                    </td>
+                </tr>
+                </tbody>
+                <button type="submit">Post</button>
+            </form>
+        </div>
+    </div>
 </template>
 
 <style scoped>
@@ -238,11 +250,11 @@
     }
 
     #postLinkText:hover {
-	color: #d00;
+        color: #d00;
     }
 
     .replyBox {
-    	background-color: #EEF2FF;
+        background-color: #EEF2FF;
     }
 
     .thread {
@@ -311,17 +323,17 @@
                     }
                 });
             },
-	    deleteThread(id) {
-		let vm = this;
-		_api.deleteThread(id, function(err, res) {
-		    if (err) {
-			console.log(err);
-		    }
-		    else if (res.result) {
-			vm.$router.push('/' + board.letter + '/catalog');
-		    }
-		});
-	    },
+            deleteThread(id) {
+                let vm = this;
+                _api.deleteThread(id, function (err, res) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else if (res.result) {
+                        vm.$router.push('/' + board.letter + '/catalog');
+                    }
+                });
+            },
             updateThread(id) {
                 let vm = this;
                 _api.thread(id, function (err, res) {
