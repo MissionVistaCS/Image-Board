@@ -34,7 +34,7 @@
                                 :href="'#' + thread._id" title="Link to this post">No.</a> <a href="#"
                                                                                               v-on:click="appendUserIdToReplyContent(thread._id + '\n')"
                                                                                               title="Reply to this post">{{ thread._id }}</a> </span>
-                            <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button></span></div>
+                            <span v-if="isMod"><button v-on:click="ban(thread)">Ban</button> <button v-on:click="deleteThread(thread, $route.params.board)">Delete</button></span></div>
                         <blockquote class="postMessage" v-html="thread.content"></blockquote>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                 <div id="bottom">
                     <hr>
                     <div id="bottomNav" class="boardNav"><span class="boardList"> [ <span v-html="boardList"></span> ] </span>
-                        <span class="actionList"> [ <a href="catalog.php#top">Top</a> / <a href="/bans" target="_top">Bans</a> / <a href="/"
+                        <span class="actionList"> [ <a href="#top">Top</a> / <a href="/bans" target="_top">Bans</a> / <a href="/"
                                                                                            target="_top">Home</a> ] </span>
                     </div>
                     <br>
@@ -313,14 +313,14 @@
                     }
                 });
             },
-            deleteThread(id) {
+            deleteThread(thread, boardId) {
                 let vm = this;
-                _api.deleteThread(id, function (err, res) {
+                _api.deleteThread(thread._id, function (err, res) {
                     if (err) {
                         console.log(err);
                     }
                     else if (res.result) {
-                        vm.$router.push('/' + board.letter + '/catalog');
+                        vm.$router.push('/' + boardId + '/catalog');
                     }
                 });
             },

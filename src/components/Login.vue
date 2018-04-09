@@ -9,15 +9,15 @@
             <table class="postForm">
                 <tbody>
                 <tr>
-                    <td style="text-align: center; width: 65px;">Email</td>
+                    <td style="width: 65px; text-align: center">Email</td>
                     <td>
-                        <input name="username" style="width: 145px; text-align: center" type="text" v-model="username">
+                        <input name="username" style="width: 145px;" type="text" v-model="username">
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align: center; width: 65px;">Password</td>
+                    <td style="width: 65px; text-align: center">Password</td>
                     <td>
-                        <input name="password" style="width: 145px; text-align: center" type="password"
+                        <input name="password" style="width: 145px;" type="password"
                                v-model="password">
                     </td>
                 </tr>

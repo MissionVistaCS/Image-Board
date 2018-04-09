@@ -2,7 +2,7 @@ const Thread = require(_base + 'models/thread');
 
 module.exports = {
     '/delete/thread': {
-        methods: ['delete'],
+        methods: ['post'],
         fn: function(req, res, next) {
             let _id = req.body._id;
             Thread.findByIdAndRemove(_id, function(err, thread) {
